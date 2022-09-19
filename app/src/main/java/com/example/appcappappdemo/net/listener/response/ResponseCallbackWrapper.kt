@@ -20,7 +20,7 @@ open class ResponseCallbackWrapper<T> : ResponseCallback<T> {
     protected var mCallback: ResultCallback<T>? = null
 
 
-    constructor(callback: ResultCallback<T>) {
+    constructor(callback: ResultCallback<T>?) {
         mCallback = callback
     }
 
