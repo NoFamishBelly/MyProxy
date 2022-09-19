@@ -69,18 +69,15 @@ class RequestCall<T> {
                         val inputStream = response.body().byteStream()
                         val reader = BufferedReader(InputStreamReader(inputStream))
                         val stringBuilder = StringBuilder()
-
                         do {
                             var line = reader.readLine()
-                            if (!TextUtils.isEmpty(line)){
+                            if (!TextUtils.isEmpty(line)) {
                                 stringBuilder.append(line)
                             }
-                        }while (!TextUtils.isEmpty(line))
-
+                        } while (!TextUtils.isEmpty(line))
 
                         val json = stringBuilder.toString()
-
-                        //TODO --- 处理后台返回的错误码
+                        LogUtils.i("返回参数 ===》 $json")
 
                         val entity = KotlinUtils.stringToJson<T>(
                             json,
@@ -113,6 +110,7 @@ class RequestCall<T> {
                     json
                 )
             )
+            LogUtils.i("请求参数 ===》 $json")
         }
         return OkHttpManager.getOkHttpClient().newCall(builder.build())
     }

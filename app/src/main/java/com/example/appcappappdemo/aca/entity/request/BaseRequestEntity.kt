@@ -22,16 +22,4 @@ open class BaseRequestEntity(val dataMap: HashMap<String, String> = HashMap()) :
         return ""
     }
 
-
-    fun getDataStr(): String {
-        if (dataMap.isNotEmpty()) {
-            val str = StringBuilder()
-            for (key in dataMap.keys) {
-                str.append("$key=${dataMap[key]}&")
-            }
-            return str.substring(0, str.length - 1)
-        }
-        return ""
-    }
-
 }
