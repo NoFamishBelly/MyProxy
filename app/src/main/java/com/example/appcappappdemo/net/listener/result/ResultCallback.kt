@@ -6,8 +6,8 @@ package com.example.appcappappdemo.net.listener.result
  */
 interface ResultCallback<T> {
 
-    fun onSuccess(response: T)
+    fun onResultSuccess(response: T)
 
-    fun onFail(errCode: String, errMsg: String)
+    fun onResultFail(errCode: String, errMsg: String)
 
 }

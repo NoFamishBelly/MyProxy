@@ -8,7 +8,7 @@ import com.example.appcappappdemo.net.listener.result.ResultCallback
  * @date 2022/09/16
  * @description 这个类是ResponseCallback的包装，主要做了对某些错误码的处理，比如登录过期，没有网络等等
  */
-class ResponseCallbackWrapper<T> : ResponseCallback<T> {
+open class ResponseCallbackWrapper<T> : ResponseCallback<T> {
 
     companion object {
         const val TAG = "ResponseCallbackWrapper"
@@ -27,14 +27,14 @@ class ResponseCallbackWrapper<T> : ResponseCallback<T> {
 
     override fun onResponseFail(errCode: String, errMsg: String) {
         mCallback?.let { callback ->
-            callback.onFail(errCode, errMsg)
+            callback.onResultFail(errCode, errMsg)
         }
     }
 
 
     override fun onResponseSuccess(response: T) {
         mCallback?.let { callback ->
-            callback.onSuccess(response)
+            callback.onResultSuccess(response)
         }
     }
 }

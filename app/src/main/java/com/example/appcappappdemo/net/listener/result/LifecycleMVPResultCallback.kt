@@ -19,7 +19,7 @@ abstract class LifecycleMVPResultCallback<T> : ResultCallback<T> {
     private var mIsAutoDismissLoadingInSuccessful: Boolean = true
 
     constructor(
-        lifecycleView: BaseView<T>?,
+        lifecycleView: BaseView<*>?,
         isEnableLoading: Boolean = true,
         isAutoDismissLoadingInSuccessful: Boolean = true
     ) {
@@ -35,7 +35,7 @@ abstract class LifecycleMVPResultCallback<T> : ResultCallback<T> {
     }
 
 
-    override fun onSuccess(response: T) {
+    override fun onResultSuccess(response: T) {
         val view = mLifecycleView.get() as BaseView<*>
         view?.let {
             if (it.isAttachedToPresenter()) {
@@ -49,7 +49,7 @@ abstract class LifecycleMVPResultCallback<T> : ResultCallback<T> {
     }
 
 
-    override fun onFail(errCode: String, errMsg: String) {
+    override fun onResultFail(errCode: String, errMsg: String) {
         val view = mLifecycleView.get() as BaseView<*>
         view?.let {
             if (mIsEnableLoading && mIsAutoDismissLoadingInSuccessful) {

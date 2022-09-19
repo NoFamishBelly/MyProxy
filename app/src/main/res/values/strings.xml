@@ -11,5 +11,6 @@
     <string name="string_query_refund_hint">退款订单号：out_trade_no/可手动输入</string>
     <string name="string_show_msg">点击按钮开始操作</string>
     <string name="string_clear_log">清空日志</string>
+    <string name="string_loading">加载中...</string>
 
 </resources>

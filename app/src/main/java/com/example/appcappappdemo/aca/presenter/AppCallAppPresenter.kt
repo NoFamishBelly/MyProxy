@@ -4,7 +4,7 @@ import com.example.appcappappdemo.aca.contract.AppCallAppContract
 import com.example.appcappappdemo.aca.entity.request.PayRequestEntity
 import com.example.appcappappdemo.aca.entity.response.PayResponseEntity
 import com.example.appcappappdemo.base.view.BaseView
-import com.example.appcappappdemo.net.listener.response.ResponseCallback
+import com.example.appcappappdemo.net.listener.result.LifecycleMVPResultCallback
 import com.example.appcappappdemo.net.manager.AppClient
 
 class AppCallAppPresenter : AppCallAppContract.Presenter {
@@ -23,15 +23,16 @@ class AppCallAppPresenter : AppCallAppContract.Presenter {
 
 
     override fun pay(payRequestEntity: PayRequestEntity) {
-        AppClient.pay(payRequestEntity)
-            .enqueue(object : ResponseCallback<PayResponseEntity> {
-                override fun onResponseSuccess(response: PayResponseEntity) {
+        AppClient.pay(
+            payRequestEntity,
+            object : LifecycleMVPResultCallback<PayResponseEntity>(mAppCallAppView) {
+                override fun onLifecycleMVPSucceed(response: PayResponseEntity) {
                     mAppCallAppView?.let { view ->
                         view.paySuccess(response)
                     }
                 }
 
-                override fun onResponseFail(errCode: String, errMsg: String) {
+                override fun onLifecycleMVPFailed(errCode: String, errMsg: String) {
                     mAppCallAppView?.let { view ->
                         view.payFailed(errCode, errMsg)
                     }

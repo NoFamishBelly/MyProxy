@@ -1,18 +1,23 @@
 package com.example.appcappappdemo.base.activity
 
+
 import android.app.Activity
 import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.example.appcappappdemo.R
+import com.example.appcappappdemo.base.dialog.LoadingDialog
 import com.example.appcappappdemo.base.presenter.BasePresenter
 import com.example.appcappappdemo.base.view.BaseView
 import java.lang.reflect.ParameterizedType
 
+
 abstract class BaseAbstractActivity<P : BasePresenter<*>> : AppCompatActivity() {
 
 
+    private var loadingDialog: LoadingDialog? = null
     protected var mPresenter: P? = null
 //    private var mUnBinder: Unbinder? = null
 
@@ -77,9 +82,53 @@ abstract class BaseAbstractActivity<P : BasePresenter<*>> : AppCompatActivity() 
      */
     fun setEnableLoading(isEnable: Boolean) {
         if (isEnable) {
-
+            showLoadingDialog()
         } else {
+            dismissLoadingDialog()
+        }
+    }
 
+    private fun showLoadingDialog() {
+        try {
+            if (loadingDialog == null) {
+                if (!this.isFinishing) {
+                    loadingDialog = LoadingDialog.createDialog(
+                        this,
+                        getString(R.string.string_loading),
+                        0
+                    )
+                    loadingDialog?.let {
+                        it.setCancelable(false)
+                        it.setCancel(false)
+                        if (!it.isShowing) {
+                            it.show()
+                        }
+                    }
+                }
+            } else {
+                if (!isFinishing) {
+                    loadingDialog?.let {
+                        it.setCancel(false)
+                        if (!it.isShowing) {
+                            it.show()
+                        }
+                    }
+                }
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+    }
+
+    private fun dismissLoadingDialog() {
+        if (loadingDialog == null) {
+            return
+        }
+        if (loadingDialog != null && getActivity() != null) {
+            loadingDialog?.let {
+                it.dismiss()
+            }
+            loadingDialog = null
         }
     }
 
