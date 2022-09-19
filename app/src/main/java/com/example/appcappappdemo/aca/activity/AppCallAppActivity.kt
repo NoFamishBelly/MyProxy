@@ -110,7 +110,9 @@ class AppCallAppActivity : BaseAbstractActivity<AppCallAppContract.Presenter>(),
                     display()
                 }
                 R.id.id_btn_query_refund -> {
-
+                    mPresenter?.let { presenter ->
+                        presenter.refund(createRefundQueryData())
+                    }
                 }
                 R.id.id_et_query_refund -> {
 
@@ -164,6 +166,22 @@ class AppCallAppActivity : BaseAbstractActivity<AppCallAppContract.Presenter>(),
             total_fee = "1000"
         )
         mDisplayStringBuilder.append("《======发起退款请求======》\n")
+        mDisplayStringBuilder.append("请求参数:\n ${KotlinUtils.getDataJsonStr(refundRequestEntity.dataMap)} \n\n")
+        display()
+        return refundRequestEntity
+    }
+
+    private fun createRefundQueryData(): RefundRequestEntity {
+        val refundRequestEntity = RefundRequestEntity(
+            mch_id = "100510000133",
+            nonce_str = "1663239227",
+            op_user_id = "100510000133",
+            out_refund_no = "1663239227",
+            out_trade_no = getOutTradeNo(),
+            refund_fee = "100",
+            total_fee = "1000"
+        )
+        mDisplayStringBuilder.append("《======发起退款查询请求======》\n")
         mDisplayStringBuilder.append("请求参数:\n ${KotlinUtils.getDataJsonStr(refundRequestEntity.dataMap)} \n\n")
         display()
         return refundRequestEntity
