@@ -1,7 +1,5 @@
 package com.example.appcappappdemo.aca.entity.request
 
-import com.example.appcappappdemo.aca.presenter.AppCallAppPresenter
-
 class PayRequestEntity() : BaseRequestEntity() {
     companion object {
         const val PARAM_BODY = "body"
@@ -39,8 +37,8 @@ class PayRequestEntity() : BaseRequestEntity() {
         dataMap[PARAM_TOTAL_FEE] = total_fee
 
 
-        dataMap[PARAM_SERVICE] = AppCallAppPresenter.SERVICE_PAY
-        dataMap[PARAM_SIGN_TYPE] = AppCallAppPresenter.SIGN_TYPE
+        dataMap[PARAM_SERVICE] = SERVICE_PAY
+        dataMap[PARAM_SIGN_TYPE] = SIGN_TYPE_MD5
         dataMap[PARAM_SIGN] = getSign()
     }
 

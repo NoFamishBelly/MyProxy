@@ -2,26 +2,21 @@ package com.example.appcappappdemo.aca.presenter
 
 import com.example.appcappappdemo.aca.contract.AppCallAppContract
 import com.example.appcappappdemo.aca.entity.request.PayRequestEntity
+import com.example.appcappappdemo.aca.entity.request.QueryRequestEntity
 import com.example.appcappappdemo.aca.entity.response.PayResponseEntity
+import com.example.appcappappdemo.aca.entity.response.QueryResponseEntity
 import com.example.appcappappdemo.base.view.BaseView
 import com.example.appcappappdemo.net.listener.result.LifecycleMVPResultCallback
 import com.example.appcappappdemo.net.manager.AppClient
 
 class AppCallAppPresenter : AppCallAppContract.Presenter {
 
-    companion object {
-        const val SERVICE_PAY = "pay.upi.upop.app"
-        const val SERVICE_QUERY = "unified.trade.query"
-        const val SERVICE_REFUND = "unified.trade.refund"
-        const val SERVICE_REFUND_QUERY = "unified.trade.refund"
-
-        const val SIGN_TYPE = "MD5"
-    }
-
-
     private var mAppCallAppView: AppCallAppContract.View? = null
 
 
+    /**
+     * 下单
+     */
     override fun pay(payRequestEntity: PayRequestEntity) {
         AppClient.pay(
             payRequestEntity,
@@ -35,6 +30,28 @@ class AppCallAppPresenter : AppCallAppContract.Presenter {
                 override fun onLifecycleMVPFailed(errCode: String, errMsg: String) {
                     mAppCallAppView?.let { view ->
                         view.payFailed(errCode, errMsg)
+                    }
+                }
+            })
+    }
+
+
+    /**
+     * 查询订单
+     */
+    override fun query(queryRequestEntity: QueryRequestEntity) {
+        AppClient.query(
+            queryRequestEntity,
+            object : LifecycleMVPResultCallback<QueryResponseEntity>(mAppCallAppView) {
+                override fun onLifecycleMVPSucceed(response: QueryResponseEntity) {
+                    mAppCallAppView?.let {
+                        it.querySuccess(response)
+                    }
+                }
+
+                override fun onLifecycleMVPFailed(errCode: String, errMsg: String) {
+                    mAppCallAppView?.let {
+                        it.queryFailed(errCode, errMsg)
                     }
                 }
             })
