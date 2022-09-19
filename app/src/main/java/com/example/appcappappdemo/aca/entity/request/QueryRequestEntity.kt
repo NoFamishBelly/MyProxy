@@ -9,8 +9,6 @@ class QueryRequestEntity() : BaseRequestEntity() {
         const val PARAM_SERVICE = "service"
         const val PARAM_SIGN = "sign"
         const val PARAM_SIGN_TYPE = "sign_type"
-
-        const val MD5 = "MD5"
     }
 
 

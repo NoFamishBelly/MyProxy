@@ -4,8 +4,10 @@ import android.content.Context
 import com.example.appcappappdemo.BuildConfig
 import com.example.appcappappdemo.aca.entity.request.BaseRequestEntity
 import com.example.appcappappdemo.aca.entity.request.QueryRequestEntity
+import com.example.appcappappdemo.aca.entity.request.RefundRequestEntity
 import com.example.appcappappdemo.aca.entity.response.PayResponseEntity
 import com.example.appcappappdemo.aca.entity.response.QueryResponseEntity
+import com.example.appcappappdemo.aca.entity.response.RefundResponseEntity
 import com.example.appcappappdemo.net.listener.request.RequestCall
 import com.example.appcappappdemo.net.listener.response.ResponseCallbackWrapper
 import com.example.appcappappdemo.net.listener.result.ResultCallback
@@ -31,6 +33,13 @@ object AppClient {
             HttpParams(BuildConfig.baseUrl, requestParam.dataMap),
             QueryResponseEntity()
         ).enqueue(ResponseCallbackWrapper<QueryResponseEntity>(callback))
+    }
+
+    fun refund(requestParam: RefundRequestEntity, callback: ResultCallback<RefundResponseEntity>?) {
+        RequestCall<RefundResponseEntity>(
+            HttpParams(BuildConfig.baseUrl, requestParam.dataMap),
+            RefundResponseEntity()
+        ).enqueue(ResponseCallbackWrapper<RefundResponseEntity>(callback))
     }
 
 }

@@ -8,8 +8,10 @@ import com.example.appcappappdemo.R
 import com.example.appcappappdemo.aca.contract.AppCallAppContract
 import com.example.appcappappdemo.aca.entity.request.PayRequestEntity
 import com.example.appcappappdemo.aca.entity.request.QueryRequestEntity
+import com.example.appcappappdemo.aca.entity.request.RefundRequestEntity
 import com.example.appcappappdemo.aca.entity.response.PayResponseEntity
 import com.example.appcappappdemo.aca.entity.response.QueryResponseEntity
+import com.example.appcappappdemo.aca.entity.response.RefundResponseEntity
 import com.example.appcappappdemo.aca.presenter.AppCallAppPresenter
 import com.example.appcappappdemo.base.activity.BaseAbstractActivity
 import com.example.appcappappdemo.utils.KotlinUtils
@@ -99,7 +101,9 @@ class AppCallAppActivity : BaseAbstractActivity<AppCallAppContract.Presenter>(),
 
                 }
                 R.id.id_btn_refund -> {
-
+                    mPresenter?.let { presenter ->
+                        presenter.refund(createRefundData())
+                    }
                 }
                 R.id.id_btn_clear_log -> {
                     mDisplayStringBuilder.clear()
@@ -149,6 +153,22 @@ class AppCallAppActivity : BaseAbstractActivity<AppCallAppContract.Presenter>(),
         return queryRequestEntity
     }
 
+    private fun createRefundData(): RefundRequestEntity {
+        val refundRequestEntity = RefundRequestEntity(
+            mch_id = "100510000133",
+            nonce_str = "1663239227",
+            op_user_id = "100510000133",
+            out_refund_no = "1663239227",
+            out_trade_no = getOutTradeNo(),
+            refund_fee = "100",
+            total_fee = "1000"
+        )
+        mDisplayStringBuilder.append("《======发起退款请求======》\n")
+        mDisplayStringBuilder.append("请求参数:\n ${KotlinUtils.getDataJsonStr(refundRequestEntity.dataMap)} \n\n")
+        display()
+        return refundRequestEntity
+    }
+
 
     private fun getOutTradeNo(): String {
         var outTradeNo = "1663239160"
@@ -179,6 +199,14 @@ class AppCallAppActivity : BaseAbstractActivity<AppCallAppContract.Presenter>(),
         showFailedInfo(errCode, errMsg)
     }
 
+
+    override fun refundSuccess(response: RefundResponseEntity) {
+        showSuccessInfo(response)
+    }
+
+    override fun refundFailed(errCode: String, errMsg: String) {
+        showFailedInfo(errCode, errMsg)
+    }
 
     private fun <T> showSuccessInfo(t: T) {
         val json = KotlinUtils.jsonToString(t)

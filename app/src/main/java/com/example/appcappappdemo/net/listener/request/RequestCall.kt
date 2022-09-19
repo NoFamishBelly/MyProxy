@@ -60,7 +60,7 @@ class RequestCall<T> {
     ) {
         call.enqueue(object : Callback {
             override fun onFailure(call: Call?, e: IOException?) {
-                callFail(CODE_NO_RESULT, "okHttp连接失败", callback)
+                callFail(CODE_NO_RESULT, "okHttp连接失败===》${e!!.toString()}", callback)
             }
 
             override fun onResponse(call: Call?, response: Response?) {
