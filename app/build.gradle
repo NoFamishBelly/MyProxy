@@ -4,7 +4,29 @@ plugins {
 }
 
 android {
-    compileSdk 32
+
+    /**
+     * bundle 打包配置 --- 过滤拆分文件
+     *
+     */
+    bundle {
+        density {
+            //不同屏幕密度的设备会产生不同的apk(默认true)
+            //false禁用，应用程序包就不会拆分不同屏幕密度的设备的APK
+            enableSplit false
+        }
+
+        abi {
+            //不同CPU架构的设备会生成不同的apk(默认true)
+            enableSplit true
+        }
+
+        language {
+            //不同语言会产生不同的apk(默认true)
+            //false禁用，应用程序包就不会拆分不同语言的APK
+            enableSplit false
+        }
+    }
 
     sourceSets {
         main {
@@ -12,6 +34,7 @@ android {
         }
     }
 
+    compileSdk 32
     defaultConfig {
         applicationId "com.example.appcappappdemo"
         minSdk 19
