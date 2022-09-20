@@ -1,5 +1,6 @@
 package com.example.appcappappdemo.aca.activity
 
+import android.content.Intent
 import android.text.TextUtils
 import android.text.method.ScrollingMovementMethod
 import android.view.View
@@ -15,10 +16,24 @@ import com.example.appcappappdemo.aca.entity.response.RefundResponseEntity
 import com.example.appcappappdemo.aca.presenter.AppCallAppPresenter
 import com.example.appcappappdemo.base.activity.BaseAbstractActivity
 import com.example.appcappappdemo.utils.KotlinUtils
+import com.unionpay.UPPayAssistEx
 
 
 class AppCallAppActivity : BaseAbstractActivity<AppCallAppContract.Presenter>(),
     AppCallAppContract.View, View.OnClickListener {
+
+    override fun getLayoutId() = R.layout.act_app_call_app
+
+    companion object {
+        const val PAY_SERVER_MODE_UAT = "01"
+        const val PAY_RESULT = "pay_result"
+        const val PAY_SUCCESS = "success"
+        const val PAY_FAIL = "fail"
+        const val PAY_CANCEL = "cancel"
+        const val PAY_RESULT_DATA = "result_data"
+        const val PAY_SIGN = "sign"
+        const val PAY_DATA = "data"
+    }
 
     private lateinit var mBtnPay: TextView
     private lateinit var mEtPay: TextView
@@ -36,9 +51,9 @@ class AppCallAppActivity : BaseAbstractActivity<AppCallAppContract.Presenter>(),
 
     private lateinit var mTvDisplay: TextView
 
-    private val mDisplayStringBuilder = StringBuilder("")
 
-    override fun getLayoutId() = R.layout.act_app_call_app
+    private var mTn: String = ""
+    private val mDisplayStringBuilder = StringBuilder("")
 
     override fun init() {
         initView()
@@ -98,7 +113,7 @@ class AppCallAppActivity : BaseAbstractActivity<AppCallAppContract.Presenter>(),
 
                 }
                 R.id.id_btn_yinlian -> {
-
+                    upPay()
                 }
                 R.id.id_btn_refund -> {
                     mPresenter?.let { presenter ->
@@ -121,6 +136,33 @@ class AppCallAppActivity : BaseAbstractActivity<AppCallAppContract.Presenter>(),
 
                 }
             }
+        }
+    }
+
+
+    private fun upPay() {
+        mDisplayStringBuilder.append("《======银联支付======》\n交易订单号tn : $mTn\n\n")
+        UPPayAssistEx.startPay(getActivity(), null, null, mTn, PAY_SERVER_MODE_UAT)
+    }
+
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        data?.let { result ->
+            val msg = result.getStringExtra(PAY_RESULT)
+            if (msg.equals(PAY_SUCCESS, ignoreCase = true)) {
+                //支付成功
+                mDisplayStringBuilder.append("支付成功\n\n")
+            } else if (msg.equals(PAY_FAIL, ignoreCase = true)) {
+                //支付失败
+                mDisplayStringBuilder.append("支付失败\n\n")
+            } else if (msg.equals(PAY_CANCEL, ignoreCase = true)) {
+                //支付取消
+                mDisplayStringBuilder.append("支付取消\n\n")
+            } else {
+
+            }
+            display()
         }
     }
 
@@ -202,6 +244,7 @@ class AppCallAppActivity : BaseAbstractActivity<AppCallAppContract.Presenter>(),
     override fun createPresenter() = AppCallAppPresenter()
 
     override fun paySuccess(response: PayResponseEntity) {
+        mTn = response.tn
         showSuccessInfo(response)
     }
 

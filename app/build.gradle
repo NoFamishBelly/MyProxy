@@ -6,6 +6,12 @@ plugins {
 android {
     compileSdk 32
 
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs']
+        }
+    }
+
     defaultConfig {
         applicationId "com.example.appcappappdemo"
         minSdk 19
