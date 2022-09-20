@@ -70,15 +70,15 @@ android {
         produce {
             resValue "string", "app_name", "AppCallApp" //不用环境下名字不同
             buildConfigField "boolean", "isDebug", "false"//是否是调试模式
-            buildConfigField "String", "baseUrl", '"http://checkout-switch-dev.wallyt.net/jsonxml/pay/gateway"'
-            buildConfigField "String", "privateKey", '"6caa96d4f2661a7c8c8f009d1f9aafba"'
+//            buildConfigField "String", "baseUrl", '"http://checkout-switch-dev.wallyt.net/jsonxml/pay/gateway"'
+//            buildConfigField "String", "privateKey", '"6caa96d4f2661a7c8c8f009d1f9aafba"'
         }
 
         uat {
             resValue "string", "app_name", "(TEST)AppCallApp"//不用环境下名字不同
             buildConfigField "boolean", "isDebug", "true"//是否是调试模式
-            buildConfigField "String", "baseUrl", '"http://checkout-switch-dev.wallyt.net/jsonxml/pay/gateway"'
-            buildConfigField "String", "privateKey", '"6caa96d4f2661a7c8c8f009d1f9aafba"'
+//            buildConfigField "String", "baseUrl", '"http://checkout-switch-dev.wallyt.net/jsonxml/pay/gateway"'
+//            buildConfigField "String", "privateKey", '"6caa96d4f2661a7c8c8f009d1f9aafba"'
         }
     }
 

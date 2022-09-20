@@ -18,5 +18,20 @@
 
     <string name="string_tool_bar">AppCallApp</string>
     <string name="string_tool_bar_param">参数配置</string>
+    <string name="string_tool_bar_save">保存</string>
 
+    <string name="string_pay_money">支付金额:\n单位分</string>
+    <string name="string_pay_money_default">默认:1000</string>
+    <string name="string_refund_money">退款金额:\n单位分</string>
+    <string name="string_refund_money_default">默认:500</string>
+    <string name="string_mch_id">商户号:</string>
+    <string name="string_mch_id_default">默认:100510000133</string>
+    <string name="string_private_key">私钥:</string>
+    <string name="string_private_key_default">默认:6caa96d4f2661a7c8c8f009d1f9aafba</string>
+    <string name="string_yin_lian">银联环境:\n00线上01测试</string>
+    <string name="string_yin_lian_default">默认:01</string>
+    <string name="string_base_url">后台地址:</string>
+    <string name="string_base_url_default">默认:http://checkout-switch-dev.wallyt.net/jsonxml/pay/gateway</string>
+
+    <string name="string_modify_success">参数修改成功</string>
 </resources>

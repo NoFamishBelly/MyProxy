@@ -16,8 +16,9 @@ import com.example.appcappappdemo.aca.entity.response.QueryResponseEntity
 import com.example.appcappappdemo.aca.entity.response.RefundResponseEntity
 import com.example.appcappappdemo.aca.presenter.AppCallAppPresenter
 import com.example.appcappappdemo.base.activity.BaseAbstractActivity
-import com.example.appcappappdemo.net.manager.AppClient
+import com.example.appcappappdemo.utils.Constants
 import com.example.appcappappdemo.utils.KotlinUtils
+import com.example.appcappappdemo.utils.ParamUtils
 import com.unionpay.UPPayAssistEx
 
 
@@ -67,6 +68,13 @@ class AppCallAppActivity : BaseAbstractActivity<AppCallAppContract.Presenter>(),
 
         val rightText = TextView(this)
         rightText.text = getString(R.string.string_tool_bar_param)
+
+        rightText.setOnClickListener {
+            startActivityForResult(
+                Intent(getActivity(), ParamSettingActivity::class.java),
+                Constants.ACTIVITY_REQUEST_CODE_PARAM_SET
+            )
+        }
 
         val toolBarRightView = getToolBarRightLayout()
         toolBarRightView?.let {
@@ -224,28 +232,34 @@ class AppCallAppActivity : BaseAbstractActivity<AppCallAppContract.Presenter>(),
             tn = getTn()
         }
         mDisplayStringBuilder.append("《======银联支付======》\n交易订单号tn : $tn\n")
-        UPPayAssistEx.startPay(getActivity(), null, null, tn, PAY_SERVER_MODE_UAT)
+        UPPayAssistEx.startPay(getActivity(), null, null, tn, ParamUtils.getYinLianFromSp())
         display()
     }
 
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        data?.let { result ->
-            val msg = result.getStringExtra(PAY_RESULT)
-            if (msg.equals(PAY_SUCCESS, ignoreCase = true)) {
-                //支付成功
-                mDisplayStringBuilder.append("支付成功\n\n")
-            } else if (msg.equals(PAY_FAIL, ignoreCase = true)) {
-                //支付失败
-                mDisplayStringBuilder.append("支付失败\n\n")
-            } else if (msg.equals(PAY_CANCEL, ignoreCase = true)) {
-                //支付取消
-                mDisplayStringBuilder.append("支付取消\n\n")
-            } else {
+        if (requestCode == Constants.ACTIVITY_REQUEST_CODE_PARAM_SET
+            && resultCode == Constants.ACTIVITY_RESULT_CODE_PARAM_SET
+        ) {
+            displayToast(getString(R.string.string_modify_success))
+        } else {
+            data?.let { result ->
+                val msg = result.getStringExtra(PAY_RESULT)
+                if (msg.equals(PAY_SUCCESS, ignoreCase = true)) {
+                    //支付成功
+                    mDisplayStringBuilder.append("支付成功\n\n")
+                } else if (msg.equals(PAY_FAIL, ignoreCase = true)) {
+                    //支付失败
+                    mDisplayStringBuilder.append("支付失败\n\n")
+                } else if (msg.equals(PAY_CANCEL, ignoreCase = true)) {
+                    //支付取消
+                    mDisplayStringBuilder.append("支付取消\n\n")
+                } else {
 
+                }
+                display()
             }
-            display()
         }
     }
 
@@ -255,14 +269,14 @@ class AppCallAppActivity : BaseAbstractActivity<AppCallAppContract.Presenter>(),
             body = "SRCi\\U652f\\U4ed8",
             device_info = "000001",
             mch_create_ip = "127.0.0.1",
-            mch_id = "100510000133",
+            mch_id = ParamUtils.getMchIdFromSp(),
             nonce_str = "1663239160",
             notify_url = "http://172.31.5.43:8888",
             out_trade_no = getOutTradeNo(),
-            total_fee = "1000"
+            total_fee = ParamUtils.getPayMoneyFromSp()
         )
         mDisplayStringBuilder.append("《======发起下单请求======》\n")
-        mDisplayStringBuilder.append("url: ${AppClient.getBaseUrl()}\n")
+        mDisplayStringBuilder.append("url: ${ParamUtils.getBaseUrlFromSp()}\n")
         showRequestInfo(KotlinUtils.getDataJsonStr(payRequestEntity.dataMap))
         return payRequestEntity
     }
@@ -270,44 +284,44 @@ class AppCallAppActivity : BaseAbstractActivity<AppCallAppContract.Presenter>(),
 
     private fun createQueryData(): QueryRequestEntity {
         val queryRequestEntity = QueryRequestEntity(
-            mch_id = "100510000133",
+            mch_id = ParamUtils.getMchIdFromSp(),
             nonce_str = "1663239198",
             out_trade_no = getOutTradeNo()
         )
         mDisplayStringBuilder.append("《======发起查询请求======》\n")
-        mDisplayStringBuilder.append("url: ${AppClient.getBaseUrl()}\n")
+        mDisplayStringBuilder.append("url: ${ParamUtils.getBaseUrlFromSp()}\n")
         showRequestInfo(KotlinUtils.getDataJsonStr(queryRequestEntity.dataMap))
         return queryRequestEntity
     }
 
     private fun createRefundData(): RefundRequestEntity {
         val refundRequestEntity = RefundRequestEntity(
-            mch_id = "100510000133",
+            mch_id = ParamUtils.getMchIdFromSp(),
             nonce_str = "1663239227",
             op_user_id = "100510000133",
             out_refund_no = getRefundOutTradeNo(),
             out_trade_no = getOutTradeNo(),
-            refund_fee = "100",
-            total_fee = "1000"
+            refund_fee = ParamUtils.getRefundMoneyFromSp(),
+            total_fee = ParamUtils.getPayMoneyFromSp()
         )
         mDisplayStringBuilder.append("《======发起退款请求======》\n")
-        mDisplayStringBuilder.append("url: ${AppClient.getBaseUrl()}\n")
+        mDisplayStringBuilder.append("url: ${ParamUtils.getBaseUrlFromSp()}\n")
         showRequestInfo(KotlinUtils.getDataJsonStr(refundRequestEntity.dataMap))
         return refundRequestEntity
     }
 
     private fun createRefundQueryData(): RefundRequestEntity {
         val refundRequestEntity = RefundRequestEntity(
-            mch_id = "100510000133",
+            mch_id = ParamUtils.getMchIdFromSp(),
             nonce_str = "1663239227",
             op_user_id = "100510000133",
             out_refund_no = getRefundOutTradeNo(),
             out_trade_no = getOutTradeNo(),
-            refund_fee = "100",
-            total_fee = "1000"
+            refund_fee = ParamUtils.getRefundMoneyFromSp(),
+            total_fee = ParamUtils.getPayMoneyFromSp()
         )
         mDisplayStringBuilder.append("《======发起退款查询请求======》\n")
-        mDisplayStringBuilder.append("url: ${AppClient.getBaseUrl()}\n")
+        mDisplayStringBuilder.append("url: ${ParamUtils.getBaseUrlFromSp()}\n")
         showRequestInfo(KotlinUtils.getDataJsonStr(refundRequestEntity.dataMap))
         return refundRequestEntity
     }

@@ -20,9 +20,16 @@
         android:theme="@style/Theme.AppCappAppDemo"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
+
+        <activity
+            android:name=".aca.activity.ParamSettingActivity"
+            android:exported="false"
+            android:launchMode="singleTop" />
+
         <activity
             android:name=".aca.activity.AppCallAppActivity"
-            android:exported="true">
+            android:exported="true"
+            android:launchMode="singleTop">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
