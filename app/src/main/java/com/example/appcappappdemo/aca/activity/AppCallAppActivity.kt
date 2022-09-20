@@ -53,6 +53,8 @@ class AppCallAppActivity : BaseAbstractActivity<AppCallAppContract.Presenter>(),
 
     private var y1 = 1f
 
+    private var mTimeStamp: String = getTimeStamp()
+
 
     private var mTn: String = ""
     private val mDisplayStringBuilder = StringBuilder("")
@@ -264,15 +266,23 @@ class AppCallAppActivity : BaseAbstractActivity<AppCallAppContract.Presenter>(),
     }
 
 
+    private fun getTimeStamp(): String {
+        val timeStamp = System.currentTimeMillis().toString()
+        return timeStamp.substring(0, timeStamp.length - 3)
+    }
+
+
     private fun createPayData(): PayRequestEntity {
+        mTimeStamp = getTimeStamp()
+        mEtQuery.text = mTimeStamp
         val payRequestEntity = PayRequestEntity(
             body = "SRCi\\U652f\\U4ed8",
             device_info = "000001",
             mch_create_ip = "127.0.0.1",
             mch_id = ParamUtils.getMchIdFromSp(),
-            nonce_str = "1663239160",
+            nonce_str = mTimeStamp,
             notify_url = "http://172.31.5.43:8888",
-            out_trade_no = getOutTradeNo(),
+            out_trade_no = mTimeStamp,
             total_fee = ParamUtils.getPayMoneyFromSp()
         )
         mDisplayStringBuilder.append("《======发起下单请求======》\n")
@@ -285,8 +295,8 @@ class AppCallAppActivity : BaseAbstractActivity<AppCallAppContract.Presenter>(),
     private fun createQueryData(): QueryRequestEntity {
         val queryRequestEntity = QueryRequestEntity(
             mch_id = ParamUtils.getMchIdFromSp(),
-            nonce_str = "1663239198",
-            out_trade_no = getOutTradeNo()
+            nonce_str = mTimeStamp,
+            out_trade_no = mTimeStamp
         )
         mDisplayStringBuilder.append("《======发起查询请求======》\n")
         mDisplayStringBuilder.append("url: ${ParamUtils.getBaseUrlFromSp()}\n")
@@ -297,10 +307,10 @@ class AppCallAppActivity : BaseAbstractActivity<AppCallAppContract.Presenter>(),
     private fun createRefundData(): RefundRequestEntity {
         val refundRequestEntity = RefundRequestEntity(
             mch_id = ParamUtils.getMchIdFromSp(),
-            nonce_str = "1663239227",
+            nonce_str = mTimeStamp,
             op_user_id = "100510000133",
             out_refund_no = getRefundOutTradeNo(),
-            out_trade_no = getOutTradeNo(),
+            out_trade_no = mTimeStamp,
             refund_fee = ParamUtils.getRefundMoneyFromSp(),
             total_fee = ParamUtils.getPayMoneyFromSp()
         )
@@ -313,10 +323,10 @@ class AppCallAppActivity : BaseAbstractActivity<AppCallAppContract.Presenter>(),
     private fun createRefundQueryData(): RefundRequestEntity {
         val refundRequestEntity = RefundRequestEntity(
             mch_id = ParamUtils.getMchIdFromSp(),
-            nonce_str = "1663239227",
+            nonce_str = mTimeStamp,
             op_user_id = "100510000133",
             out_refund_no = getRefundOutTradeNo(),
-            out_trade_no = getOutTradeNo(),
+            out_trade_no = mTimeStamp,
             refund_fee = ParamUtils.getRefundMoneyFromSp(),
             total_fee = ParamUtils.getPayMoneyFromSp()
         )
