@@ -1,4 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest package="com.example.yinliansdk">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.yinliansdk">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.NFC" />
+    <uses-permission android:name="org.simalliance.openmobileapi.SMARTCARD" />
+
+    <uses-feature android:name="android.hardware.nfc.hce" />
+
+    <queries>
+        <package android:name="com.unionpay" />
+        <package android:name="com.unionpay.tsmservice" />
+        <package android:name="com.unionpay.tsmservice.mi" />
+        <package android:name="com.huawei.wallet" />
+    </queries>
+
+    <application>
+        <activity
+            android:name=".UIPPayDemoActivity"
+            android:exported="false" />
+
+        <uses-library
+            android:name="org.simalliance.openmobileapi"
+            android:required="false" />
+
+        <activity
+            android:name="com.unionPay.upPay.PayActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:excludeFromRecents="true"
+            android:label="@string/app_names"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name="com.unionPay.UPPayWapActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize" />
+    </application>
 
 </manifest>
