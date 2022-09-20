@@ -5,12 +5,18 @@ import android.app.Activity
 import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.LinearLayout
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import com.example.appcappappdemo.R
 import com.example.appcappappdemo.base.dialog.LoadingDialog
 import com.example.appcappappdemo.base.presenter.BasePresenter
 import com.example.appcappappdemo.base.view.BaseView
+import com.example.appcappappdemo.utils.KotlinUtils
 import java.lang.reflect.ParameterizedType
 
 
@@ -19,21 +25,77 @@ abstract class BaseAbstractActivity<P : BasePresenter<*>> : AppCompatActivity() 
 
     private var loadingDialog: LoadingDialog? = null
     protected var mPresenter: P? = null
-//    private var mUnBinder: Unbinder? = null
+
+    protected lateinit var mToolBarBase: Toolbar
+    protected lateinit var mToolBarTitle: TextView
+    protected lateinit var mToolBarRightLl: LinearLayout
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         if (getLayoutId() != 0) {
-            val inflater = LayoutInflater.from(this)
-            val baseView = inflater.inflate(getLayoutId(), null)
-            setContentView(baseView)
+            configView()
             initPresenter()
-//            //BindView
-//            mUnBinder = ButterKnife.bind(this)
             init()
         }
     }
+
+
+    private fun configView() {
+        val inflater = LayoutInflater.from(this)
+        val baseView = inflater.inflate(getLayoutId(), null)
+        if (notUseToolBar()) {
+            //不使用统一toolBar
+            setContentView(baseView)
+        } else {
+            //使用统一toolBar
+            val lpParent = LinearLayout(this)
+            lpParent.orientation = LinearLayout.VERTICAL
+            val toolbarView = inflater.inflate(R.layout.base_tool_bar, null)
+
+            initToolBar(toolbarView)
+            val screenWith = KotlinUtils.getScreenWidth(this)
+            toolbarView.layoutParams =
+                LinearLayout.LayoutParams(screenWith, ViewGroup.LayoutParams.WRAP_CONTENT)
+
+            lpParent.addView(toolbarView)
+            lpParent.addView(baseView)
+            setContentView(lpParent)
+        }
+    }
+
+
+    fun initToolBar(toolbarView: View) {
+        mToolBarBase = toolbarView.findViewById(R.id.toolbar_base)
+        mToolBarTitle = toolbarView.findViewById(R.id.toolbar_title)
+        mToolBarRightLl = toolbarView.findViewById(R.id.toolbar_right_fl)
+
+
+        supportActionBar?.let {
+            it.hide()
+        }
+
+//        mToolBarBase?.let {
+//            setSupportActionBar(it)
+//        }
+//        supportActionBar?.let {
+//            it.setDisplayShowTitleEnabled(false)
+//            it.elevation = 1f
+//        }
+    }
+
+
+    protected fun notUseToolBar() = false
+
+
+    protected fun setToolBarTitle(title: String) {
+        mToolBarTitle?.let {
+            it.text = title
+        }
+    }
+
+
+    protected fun getToolBarRightLayout() = mToolBarRightLl
 
 
     /**
@@ -139,9 +201,6 @@ abstract class BaseAbstractActivity<P : BasePresenter<*>> : AppCompatActivity() 
             presenter.detachView()
             mPresenter = null
         }
-//        mUnBinder?.let {
-//            it.unbind()
-//        }
     }
 
 

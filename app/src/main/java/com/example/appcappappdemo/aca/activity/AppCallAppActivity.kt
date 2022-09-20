@@ -3,6 +3,7 @@ package com.example.appcappappdemo.aca.activity
 import android.content.Intent
 import android.text.TextUtils
 import android.text.method.ScrollingMovementMethod
+import android.view.MotionEvent
 import android.view.View
 import android.widget.TextView
 import com.example.appcappappdemo.R
@@ -21,7 +22,7 @@ import com.unionpay.UPPayAssistEx
 
 
 class AppCallAppActivity : BaseAbstractActivity<AppCallAppContract.Presenter>(),
-    AppCallAppContract.View, View.OnClickListener {
+    AppCallAppContract.View, View.OnClickListener, View.OnTouchListener {
 
     override fun getLayoutId() = R.layout.act_app_call_app
 
@@ -49,12 +50,28 @@ class AppCallAppActivity : BaseAbstractActivity<AppCallAppContract.Presenter>(),
 
     private lateinit var mTvDisplay: TextView
 
+    private var y1 = 1f
+
 
     private var mTn: String = ""
     private val mDisplayStringBuilder = StringBuilder("")
 
     override fun init() {
+        initToolBar()
         initView()
+    }
+
+
+    private fun initToolBar() {
+        setToolBarTitle(getString(R.string.string_tool_bar))
+
+        val rightText = TextView(this)
+        rightText.text = getString(R.string.string_tool_bar_param)
+
+        val toolBarRightView = getToolBarRightLayout()
+        toolBarRightView?.let {
+            it.addView(rightText)
+        }
     }
 
 
@@ -74,6 +91,7 @@ class AppCallAppActivity : BaseAbstractActivity<AppCallAppContract.Presenter>(),
 
         mTvDisplay = findViewById(R.id.id_tv_display)
         mTvDisplay.movementMethod = ScrollingMovementMethod.getInstance()
+        mTvDisplay.setOnTouchListener(this)
 
 
         mBtnPay.setOnClickListener(this)
@@ -88,6 +106,65 @@ class AppCallAppActivity : BaseAbstractActivity<AppCallAppContract.Presenter>(),
 
         mBtnRefundQuery.setOnClickListener(this)
         mEtRefundQuery.setOnClickListener(this)
+    }
+
+
+    override fun onTouch(p0: View?, p1: MotionEvent?): Boolean {
+        p1?.let { event ->
+            p0?.let { v ->
+                if (event.action === MotionEvent.ACTION_DOWN) {
+                    //按下去第一个Y坐标
+                    y1 = event.y
+                    //通知父控件不要干扰
+                    v.parent.requestDisallowInterceptTouchEvent(true)
+                }
+                if (event.action === MotionEvent.ACTION_MOVE) {
+                    if (y1 - event.y > 50) {
+                        v.parent
+                            .requestDisallowInterceptTouchEvent(
+                                canVerticalScroll(
+                                    v as TextView,
+                                    true
+                                )
+                            )
+                    } else if (event.y - y1 > 380) {
+                        v.parent
+                            .requestDisallowInterceptTouchEvent(
+                                canVerticalScroll(
+                                    v as TextView,
+                                    false
+                                )
+                            )
+                    }
+                }
+                if (event.action === MotionEvent.ACTION_UP) {
+                    v.parent.requestDisallowInterceptTouchEvent(false)
+                }
+            }
+        }
+        return false
+    }
+
+
+    /**
+     * @param view 滑动的TextView
+     * @param flag true 向上滑动 false 向下滑动
+     * @return
+     */
+    private fun canVerticalScroll(view: TextView, flag: Boolean): Boolean {
+        //滚动的距离
+        val scrollY = view.scrollY
+        //控件内容的总高度
+        val scrollRange = view.layout.height
+        //控件实际显示的高度
+        val scrollExtent = view.height - view.compoundPaddingTop - view.compoundPaddingBottom
+        //控件内容总高度与实际显示高度的差值
+        val scrollDifference = scrollRange - scrollExtent
+        return if (flag) {
+            scrollDifference != scrollY
+        } else {
+            scrollDifference == 0
+        }
     }
 
 

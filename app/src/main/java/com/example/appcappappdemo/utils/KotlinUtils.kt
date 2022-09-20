@@ -1,5 +1,6 @@
 package com.example.appcappappdemo.utils
 
+import android.content.Context
 import com.google.gson.Gson
 import com.google.gson.JsonObject
 
@@ -60,6 +61,18 @@ object KotlinUtils {
             return jsonToString(json)
         }
         return ""
+    }
+
+
+    fun getScreenWidth(context: Context): Int {
+        val dm = context.resources.displayMetrics
+        return dm.widthPixels
+    }
+
+
+    fun dp2px(dp: Float, context: Context): Int {
+        val scale: Float = context.resources.displayMetrics.density
+        return (dp * scale + 0.5f).toInt()
     }
 
 }

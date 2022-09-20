@@ -16,4 +16,7 @@
     <string name="string_clear_log">清空日志</string>
     <string name="string_loading">加载中...</string>
 
+    <string name="string_tool_bar">AppCallApp</string>
+    <string name="string_tool_bar_param">参数配置</string>
+
 </resources>

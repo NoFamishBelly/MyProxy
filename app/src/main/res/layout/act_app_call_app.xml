@@ -9,205 +9,217 @@
     android:orientation="vertical"
     tools:context=".aca.activity.AppCallAppActivity">
 
-
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <View
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="1dp"
+        android:background="@color/line_color_gray" />
 
 
-        <!--    下单    -->
-        <LinearLayout
-            android:id="@+id/id_ll_pay"
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:layout_marginTop="15dp"
-            android:layout_marginRight="5dp"
-            android:orientation="horizontal"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            android:layout_height="match_parent">
 
 
-            <TextView
-                android:id="@+id/id_btn_pay"
-                android:layout_width="110dp"
-                android:layout_height="wrap_content"
-                android:background="@color/blue"
-                android:gravity="center"
-                android:padding="5dp"
-                android:text="@string/string_pay"
-                android:textColor="@color/white"
-                android:textSize="18dp" />
-
-
-            <EditText
-                android:id="@+id/id_et_pay"
+            <!--    下单    -->
+            <LinearLayout
+                android:id="@+id/id_ll_pay"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="4dp"
-                android:ellipsize="end"
-                android:hint="@string/string_pay_hint_num"
-                android:maxLines="1"
-                android:textColor="@color/black" />
-
-        </LinearLayout>
-
-
-        <!--    查询订单    -->
-        <LinearLayout
-            android:id="@+id/id_ll_query"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:layout_marginTop="15dp"
-            android:layout_marginRight="5dp"
-            android:orientation="horizontal"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/id_ll_pay">
-
-
-            <TextView
-                android:id="@+id/id_btn_query"
-                android:layout_width="110dp"
-                android:layout_height="wrap_content"
-                android:background="@color/blue"
-                android:gravity="center"
-                android:padding="5dp"
-                android:text="@string/string_query"
-                android:textColor="@color/white"
-                android:textSize="18dp" />
-
-
-            <EditText
-                android:id="@+id/id_et_query"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="4dp"
-                android:ellipsize="end"
-                android:hint="@string/string_query_hint_num"
-                android:maxLines="1"
-                android:textColor="@color/black" />
-
-        </LinearLayout>
-
-
-        <!--    银联支付/订单退款    -->
-        <LinearLayout
-            android:id="@+id/id_ll_yinlian_refund"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:layout_marginTop="15dp"
-            android:layout_marginRight="5dp"
-            android:orientation="horizontal"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/id_ll_query">
-
-
-            <TextView
-                android:id="@+id/id_btn_yinlian"
-                android:layout_width="110dp"
-                android:layout_height="wrap_content"
-                android:background="@color/red"
-                android:gravity="center"
-                android:padding="5dp"
-                android:text="@string/string_yinlian"
-                android:textColor="@color/white"
-                android:textSize="18dp" />
-
-
-            <TextView
-                android:id="@+id/id_btn_refund"
-                android:layout_width="110dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
-                android:background="@color/blue"
-                android:gravity="center"
-                android:padding="5dp"
-                android:text="@string/string_refund"
-                android:textColor="@color/white"
-                android:textSize="18dp" />
+                android:layout_marginTop="15dp"
+                android:layout_marginRight="5dp"
+                android:orientation="horizontal"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
 
-            <TextView
-                android:id="@+id/id_btn_clear_log"
-                android:layout_width="110dp"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:background="@color/blue"
-                android:gravity="center"
-                android:padding="5dp"
-                android:text="@string/string_clear_log"
-                android:textColor="@color/white"
-                android:textSize="18dp" />
+                <TextView
+                    android:id="@+id/id_btn_pay"
+                    android:layout_width="110dp"
+                    android:layout_height="wrap_content"
+                    android:background="@color/blue"
+                    android:gravity="center"
+                    android:padding="5dp"
+                    android:text="@string/string_pay"
+                    android:textColor="@color/white"
+                    android:textSize="18dp" />
 
 
-        </LinearLayout>
+                <EditText
+                    android:id="@+id/id_et_pay"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="4dp"
+                    android:ellipsize="end"
+                    android:hint="@string/string_pay_hint_num"
+                    android:maxLines="1"
+                    android:textColor="@color/black" />
+
+            </LinearLayout>
 
 
-        <!--    查询退款单    -->
-        <LinearLayout
-            android:id="@+id/id_ll_query_refund"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:layout_marginTop="15dp"
-            android:layout_marginRight="5dp"
-            android:orientation="horizontal"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/id_ll_yinlian_refund">
-
-
-            <TextView
-                android:id="@+id/id_btn_query_refund"
-                android:layout_width="110dp"
-                android:layout_height="wrap_content"
-                android:background="@color/blue"
-                android:gravity="center"
-                android:padding="5dp"
-                android:text="@string/string_query_refund"
-                android:textColor="@color/white"
-                android:textSize="18dp" />
-
-
-            <EditText
-                android:id="@+id/id_et_query_refund"
+            <!--    查询订单    -->
+            <LinearLayout
+                android:id="@+id/id_ll_query"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="4dp"
-                android:ellipsize="end"
-                android:hint="@string/string_query_refund_hint_num"
-                android:maxLines="1"
-                android:textColor="@color/black" />
-
-        </LinearLayout>
-
-
-        <TextView
-            android:id="@+id/id_tv_display"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_marginLeft="5dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginRight="5dp"
-            android:layout_marginBottom="20dp"
-            android:background="@color/black"
-            android:paddingLeft="5dp"
-            android:paddingTop="5dp"
-            android:paddingRight="5dp"
-            android:scrollbarSize="5dp"
-            android:scrollbars="vertical"
-            android:text="@string/string_show_msg"
-            android:textColor="@color/white"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/id_ll_query_refund" />
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginRight="5dp"
+                android:orientation="horizontal"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/id_ll_pay">
 
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+                <TextView
+                    android:id="@+id/id_btn_query"
+                    android:layout_width="110dp"
+                    android:layout_height="wrap_content"
+                    android:background="@color/blue"
+                    android:gravity="center"
+                    android:padding="5dp"
+                    android:text="@string/string_query"
+                    android:textColor="@color/white"
+                    android:textSize="18dp" />
+
+
+                <EditText
+                    android:id="@+id/id_et_query"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="4dp"
+                    android:ellipsize="end"
+                    android:hint="@string/string_query_hint_num"
+                    android:maxLines="1"
+                    android:textColor="@color/black" />
+
+            </LinearLayout>
+
+
+            <!--    银联支付/订单退款    -->
+            <LinearLayout
+                android:id="@+id/id_ll_yinlian_refund"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginRight="5dp"
+                android:orientation="horizontal"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/id_ll_query">
+
+
+                <TextView
+                    android:id="@+id/id_btn_yinlian"
+                    android:layout_width="110dp"
+                    android:layout_height="wrap_content"
+                    android:background="@color/red"
+                    android:gravity="center"
+                    android:padding="5dp"
+                    android:text="@string/string_yinlian"
+                    android:textColor="@color/white"
+                    android:textSize="18dp" />
+
+
+                <TextView
+                    android:id="@+id/id_btn_refund"
+                    android:layout_width="110dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:background="@color/blue"
+                    android:gravity="center"
+                    android:padding="5dp"
+                    android:text="@string/string_refund"
+                    android:textColor="@color/white"
+                    android:textSize="18dp" />
+
+
+                <TextView
+                    android:id="@+id/id_btn_clear_log"
+                    android:layout_width="110dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:background="@color/blue"
+                    android:gravity="center"
+                    android:padding="5dp"
+                    android:text="@string/string_clear_log"
+                    android:textColor="@color/white"
+                    android:textSize="18dp" />
+
+
+            </LinearLayout>
+
+
+            <!--    查询退款单    -->
+            <LinearLayout
+                android:id="@+id/id_ll_query_refund"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginRight="5dp"
+                android:orientation="horizontal"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/id_ll_yinlian_refund">
+
+
+                <TextView
+                    android:id="@+id/id_btn_query_refund"
+                    android:layout_width="110dp"
+                    android:layout_height="wrap_content"
+                    android:background="@color/blue"
+                    android:gravity="center"
+                    android:padding="5dp"
+                    android:text="@string/string_query_refund"
+                    android:textColor="@color/white"
+                    android:textSize="18dp" />
+
+
+                <EditText
+                    android:id="@+id/id_et_query_refund"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="4dp"
+                    android:ellipsize="end"
+                    android:hint="@string/string_query_refund_hint_num"
+                    android:maxLines="1"
+                    android:textColor="@color/black" />
+
+            </LinearLayout>
+
+
+            <TextView
+                android:id="@+id/id_tv_display"
+                android:layout_width="match_parent"
+                android:layout_height="500dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginBottom="20dp"
+                android:background="@color/black"
+                android:paddingLeft="5dp"
+                android:paddingTop="5dp"
+                android:paddingRight="5dp"
+                android:scrollbarSize="5dp"
+                android:scrollbars="vertical"
+                android:text="@string/string_show_msg"
+                android:textColor="@color/white"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/id_ll_query_refund" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
 
 
 </LinearLayout>

@@ -9,6 +9,7 @@
     <color name="white">#FFFFFFFF</color>
 
 
+    <color name="line_color_gray">#1A000000</color>
 
     <color name="transparent">#00000000</color><!--透明色-->
     <color name="colorYang">#FFE2C59B</color><!--羊皮纸色-->
