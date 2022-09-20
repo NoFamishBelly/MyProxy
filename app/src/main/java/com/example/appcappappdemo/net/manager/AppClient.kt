@@ -12,32 +12,41 @@ import com.example.appcappappdemo.net.listener.request.RequestCall
 import com.example.appcappappdemo.net.listener.response.ResponseCallbackWrapper
 import com.example.appcappappdemo.net.listener.result.ResultCallback
 import com.example.appcappappdemo.net.param.HttpParams
+import com.example.appcappappdemo.utils.SpUtils
 
 object AppClient {
 
+    private const val BASE_UEL = "base_url"
+
     private lateinit var mContext: Context
+    private lateinit var mBaseUrl: String
 
     fun init(context: Context) {
         mContext = context
+        mBaseUrl = SpUtils.get(BASE_UEL, BuildConfig.baseUrl)
     }
+
+
+    fun getBaseUrl() = mBaseUrl
+
 
     fun pay(requestParam: BaseRequestEntity, callback: ResultCallback<PayResponseEntity>?) {
         RequestCall<PayResponseEntity>(
-            HttpParams(BuildConfig.baseUrl, requestParam.dataMap),
+            HttpParams(mBaseUrl, requestParam.dataMap),
             PayResponseEntity()
         ).enqueue(ResponseCallbackWrapper<PayResponseEntity>(callback))
     }
 
     fun query(requestParam: QueryRequestEntity, callback: ResultCallback<QueryResponseEntity>?) {
         RequestCall<QueryResponseEntity>(
-            HttpParams(BuildConfig.baseUrl, requestParam.dataMap),
+            HttpParams(mBaseUrl, requestParam.dataMap),
             QueryResponseEntity()
         ).enqueue(ResponseCallbackWrapper<QueryResponseEntity>(callback))
     }
 
     fun refund(requestParam: RefundRequestEntity, callback: ResultCallback<RefundResponseEntity>?) {
         RequestCall<RefundResponseEntity>(
-            HttpParams(BuildConfig.baseUrl, requestParam.dataMap),
+            HttpParams(mBaseUrl, requestParam.dataMap),
             RefundResponseEntity()
         ).enqueue(ResponseCallbackWrapper<RefundResponseEntity>(callback))
     }

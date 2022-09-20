@@ -47,7 +47,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="4dp"
                 android:ellipsize="end"
-                android:hint="@string/string_pay_hint"
+                android:hint="@string/string_pay_hint_num"
                 android:maxLines="1"
                 android:textColor="@color/black" />
 
@@ -86,7 +86,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="4dp"
                 android:ellipsize="end"
-                android:hint="@string/string_query_hint"
+                android:hint="@string/string_query_hint_num"
                 android:maxLines="1"
                 android:textColor="@color/black" />
 
@@ -180,7 +180,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="4dp"
                 android:ellipsize="end"
-                android:hint="@string/string_query_refund_hint"
+                android:hint="@string/string_query_refund_hint_num"
                 android:maxLines="1"
                 android:textColor="@color/black" />
 

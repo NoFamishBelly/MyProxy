@@ -15,6 +15,7 @@ import com.example.appcappappdemo.aca.entity.response.QueryResponseEntity
 import com.example.appcappappdemo.aca.entity.response.RefundResponseEntity
 import com.example.appcappappdemo.aca.presenter.AppCallAppPresenter
 import com.example.appcappappdemo.base.activity.BaseAbstractActivity
+import com.example.appcappappdemo.net.manager.AppClient
 import com.example.appcappappdemo.utils.KotlinUtils
 import com.unionpay.UPPayAssistEx
 
@@ -184,8 +185,8 @@ class AppCallAppActivity : BaseAbstractActivity<AppCallAppContract.Presenter>(),
             total_fee = "1000"
         )
         mDisplayStringBuilder.append("《======发起下单请求======》\n")
-        mDisplayStringBuilder.append("请求参数:\n ${KotlinUtils.getDataJsonStr(payRequestEntity.dataMap)} \n\n")
-        display()
+        mDisplayStringBuilder.append("url: ${AppClient.getBaseUrl()}\n")
+        showRequestInfo(KotlinUtils.getDataJsonStr(payRequestEntity.dataMap))
         return payRequestEntity
     }
 
@@ -197,8 +198,8 @@ class AppCallAppActivity : BaseAbstractActivity<AppCallAppContract.Presenter>(),
             out_trade_no = getOutTradeNo()
         )
         mDisplayStringBuilder.append("《======发起查询请求======》\n")
-        mDisplayStringBuilder.append("请求参数:\n ${KotlinUtils.getDataJsonStr(queryRequestEntity.dataMap)} \n\n")
-        display()
+        mDisplayStringBuilder.append("url: ${AppClient.getBaseUrl()}\n")
+        showRequestInfo(KotlinUtils.getDataJsonStr(queryRequestEntity.dataMap))
         return queryRequestEntity
     }
 
@@ -213,8 +214,8 @@ class AppCallAppActivity : BaseAbstractActivity<AppCallAppContract.Presenter>(),
             total_fee = "1000"
         )
         mDisplayStringBuilder.append("《======发起退款请求======》\n")
-        mDisplayStringBuilder.append("请求参数:\n ${KotlinUtils.getDataJsonStr(refundRequestEntity.dataMap)} \n\n")
-        display()
+        mDisplayStringBuilder.append("url: ${AppClient.getBaseUrl()}\n")
+        showRequestInfo(KotlinUtils.getDataJsonStr(refundRequestEntity.dataMap))
         return refundRequestEntity
     }
 
@@ -229,8 +230,8 @@ class AppCallAppActivity : BaseAbstractActivity<AppCallAppContract.Presenter>(),
             total_fee = "1000"
         )
         mDisplayStringBuilder.append("《======发起退款查询请求======》\n")
-        mDisplayStringBuilder.append("请求参数:\n ${KotlinUtils.getDataJsonStr(refundRequestEntity.dataMap)} \n\n")
-        display()
+        mDisplayStringBuilder.append("url: ${AppClient.getBaseUrl()}\n")
+        showRequestInfo(KotlinUtils.getDataJsonStr(refundRequestEntity.dataMap))
         return refundRequestEntity
     }
 
@@ -279,6 +280,9 @@ class AppCallAppActivity : BaseAbstractActivity<AppCallAppContract.Presenter>(),
 
     override fun paySuccess(response: PayResponseEntity) {
         mTn = response.tn
+        if (!TextUtils.isEmpty(response.tn)) {
+            mEtPay.text = response.tn
+        }
         showSuccessInfo(response)
     }
 
@@ -303,9 +307,31 @@ class AppCallAppActivity : BaseAbstractActivity<AppCallAppContract.Presenter>(),
         showFailedInfo(errCode, errMsg)
     }
 
+
+    private fun showRequestInfo(json: String?) {
+        val data = json!!.substring(1, json.length - 1)
+        mDisplayStringBuilder.append("请求参数: \n")
+        mDisplayStringBuilder.append("{\n")
+        val array = data.split(",")
+        for (str in array) {
+            mDisplayStringBuilder.append("\t$str\n")
+        }
+        mDisplayStringBuilder.append("}\n\n")
+        display()
+    }
+
+
     private fun <T> showSuccessInfo(t: T) {
         val json = KotlinUtils.jsonToString(t)
-        mDisplayStringBuilder.append("请求结果(成功): \n$json \n\n\n\n")
+
+        val data = json!!.substring(1, json.length - 1)
+        mDisplayStringBuilder.append("请求结果(成功): \n")
+        mDisplayStringBuilder.append("{\n")
+        val array = data.split(",")
+        for (str in array) {
+            mDisplayStringBuilder.append("\t$str\n")
+        }
+        mDisplayStringBuilder.append("}\n\n\n\n")
         display()
     }
 

@@ -3,12 +3,15 @@
 
     <string name="string_pay">下单生成TN</string>
     <string name="string_pay_hint">TN号：可下单生成/可手动输入</string>
+    <string name="string_pay_hint_num">TN号: 默认637868762282541849211</string>
     <string name="string_query">查询订单</string>
     <string name="string_query_hint">订单号：out_trade_no/可手动输入</string>
+    <string name="string_query_hint_num">订单号: 默认1663239160</string>
     <string name="string_yinlian">银联支付</string>
     <string name="string_refund">订单退款</string>
     <string name="string_query_refund">查询退款单</string>
     <string name="string_query_refund_hint">退款订单号：out_trade_no/可手动输入</string>
+    <string name="string_query_refund_hint_num">退款订单号: 默认1663239160</string>
     <string name="string_show_msg">点击按钮开始操作</string>
     <string name="string_clear_log">清空日志</string>
     <string name="string_loading">加载中...</string>
