@@ -208,8 +208,8 @@ class AppCallAppActivity : BaseAbstractActivity<AppCallAppContract.Presenter>(),
             mch_id = "100510000133",
             nonce_str = "1663239227",
             op_user_id = "100510000133",
-            out_refund_no = "1663239227",
-            out_trade_no = getRefundOutTradeNo(),
+            out_refund_no = getRefundOutTradeNo(),
+            out_trade_no = getOutTradeNo(),
             refund_fee = "100",
             total_fee = "1000"
         )
@@ -224,8 +224,8 @@ class AppCallAppActivity : BaseAbstractActivity<AppCallAppContract.Presenter>(),
             mch_id = "100510000133",
             nonce_str = "1663239227",
             op_user_id = "100510000133",
-            out_refund_no = "1663239227",
-            out_trade_no = getRefundOutTradeNo(),
+            out_refund_no = getRefundOutTradeNo(),
+            out_trade_no = getOutTradeNo(),
             refund_fee = "100",
             total_fee = "1000"
         )
@@ -266,7 +266,7 @@ class AppCallAppActivity : BaseAbstractActivity<AppCallAppContract.Presenter>(),
      * 获取退款订单号
      */
     private fun getRefundOutTradeNo(): String {
-        var outTradeNo = "1663239160"
+        var outTradeNo = "1663239227"
         mEtRefundQuery?.let { et ->
             if (!TextUtils.isEmpty(et.text.toString().trim())) {
                 outTradeNo = et.text.toString().trim()
