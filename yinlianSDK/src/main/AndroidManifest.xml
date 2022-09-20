@@ -21,9 +21,6 @@
     </queries>
 
     <application>
-        <activity
-            android:name=".UIPPayDemoActivity"
-            android:exported="false" />
 
         <uses-library
             android:name="org.simalliance.openmobileapi"

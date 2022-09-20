@@ -30,9 +30,6 @@ class AppCallAppActivity : BaseAbstractActivity<AppCallAppContract.Presenter>(),
         const val PAY_SUCCESS = "success"
         const val PAY_FAIL = "fail"
         const val PAY_CANCEL = "cancel"
-        const val PAY_RESULT_DATA = "result_data"
-        const val PAY_SIGN = "sign"
-        const val PAY_DATA = "data"
     }
 
     private lateinit var mBtnPay: TextView
@@ -140,9 +137,17 @@ class AppCallAppActivity : BaseAbstractActivity<AppCallAppContract.Presenter>(),
     }
 
 
+    /**
+     * 银联支付
+     */
     private fun upPay() {
-        mDisplayStringBuilder.append("《======银联支付======》\n交易订单号tn : $mTn\n\n")
-        UPPayAssistEx.startPay(getActivity(), null, null, mTn, PAY_SERVER_MODE_UAT)
+        var tn = mTn
+        if (TextUtils.isEmpty(tn)) {
+            tn = getTn()
+        }
+        mDisplayStringBuilder.append("《======银联支付======》\n交易订单号tn : $tn\n")
+        UPPayAssistEx.startPay(getActivity(), null, null, tn, PAY_SERVER_MODE_UAT)
+        display()
     }
 
 
@@ -203,7 +208,7 @@ class AppCallAppActivity : BaseAbstractActivity<AppCallAppContract.Presenter>(),
             nonce_str = "1663239227",
             op_user_id = "100510000133",
             out_refund_no = "1663239227",
-            out_trade_no = getOutTradeNo(),
+            out_trade_no = getRefundOutTradeNo(),
             refund_fee = "100",
             total_fee = "1000"
         )
@@ -219,7 +224,7 @@ class AppCallAppActivity : BaseAbstractActivity<AppCallAppContract.Presenter>(),
             nonce_str = "1663239227",
             op_user_id = "100510000133",
             out_refund_no = "1663239227",
-            out_trade_no = getOutTradeNo(),
+            out_trade_no = getRefundOutTradeNo(),
             refund_fee = "100",
             total_fee = "1000"
         )
@@ -229,10 +234,39 @@ class AppCallAppActivity : BaseAbstractActivity<AppCallAppContract.Presenter>(),
         return refundRequestEntity
     }
 
+    /**
+     * 获取tn号
+     */
+    private fun getTn(): String {
+        var tn = "637868762282541849211"
+        mEtPay?.let { et ->
+            if (!TextUtils.isEmpty(et.text.toString().trim())) {
+                tn = et.text.toString().trim()
+            }
+        }
+        return tn
+    }
 
+
+    /**
+     * 获取订单号
+     */
     private fun getOutTradeNo(): String {
         var outTradeNo = "1663239160"
-        mEtPay?.let { et ->
+        mEtQuery?.let { et ->
+            if (!TextUtils.isEmpty(et.text.toString().trim())) {
+                outTradeNo = et.text.toString().trim()
+            }
+        }
+        return outTradeNo
+    }
+
+    /**
+     * 获取退款订单号
+     */
+    private fun getRefundOutTradeNo(): String {
+        var outTradeNo = "1663239160"
+        mEtRefundQuery?.let { et ->
             if (!TextUtils.isEmpty(et.text.toString().trim())) {
                 outTradeNo = et.text.toString().trim()
             }
