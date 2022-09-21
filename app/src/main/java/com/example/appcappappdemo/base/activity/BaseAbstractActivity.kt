@@ -65,7 +65,7 @@ abstract class BaseAbstractActivity<P : BasePresenter<*>> : AppCompatActivity() 
     }
 
 
-    fun initToolBar(toolbarView: View) {
+    private fun initToolBar(toolbarView: View) {
         mToolBarBase = toolbarView.findViewById(R.id.toolbar_base)
         mToolBarTitle = toolbarView.findViewById(R.id.toolbar_title)
         mToolBarRightLl = toolbarView.findViewById(R.id.toolbar_right_fl)
@@ -94,6 +94,7 @@ abstract class BaseAbstractActivity<P : BasePresenter<*>> : AppCompatActivity() 
         }
     }
 
+    protected fun getToolBarBase() = mToolBarBase
 
     protected fun getToolBarRightLayout() = mToolBarRightLl
 

@@ -43,6 +43,12 @@ class ParamSettingActivity : BaseAbstractActivity<BasePresenter<*>>() {
         toolBarRightView?.let {
             it.addView(rightText)
         }
+
+        val toolbar = getToolBarBase()
+        toolbar.setNavigationIcon(R.drawable.ic_icon_back_black)
+        toolbar.setNavigationOnClickListener {
+            finish()
+        }
     }
 
 
