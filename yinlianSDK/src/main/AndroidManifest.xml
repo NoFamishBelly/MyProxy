@@ -17,6 +17,12 @@
         <package android:name="com.unionpay" />
         <package android:name="com.unionpay.tsmservice" />
         <package android:name="com.unionpay.tsmservice.mi" />
+    </queries>
+
+    <queries>
+        <package android:name="com.unionpay" />
+        <package android:name="com.unionpay.tsmservice" />
+        <package android:name="com.unionpay.tsmservice.mi" />
         <package android:name="com.huawei.wallet" />
     </queries>
 
@@ -26,18 +32,15 @@
             android:name="org.simalliance.openmobileapi"
             android:required="false" />
 
+
         <activity
-            android:name="com.unionPay.upPay.PayActivity"
-            android:configChanges="orientation|keyboardHidden"
-            android:excludeFromRecents="true"
-            android:label="@string/app_names"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustResize" />
-        <activity
-            android:name="com.unionPay.UPPayWapActivity"
+            android:name="com.unionpay.UPPayWapActivity"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait"
+            android:theme="@style/UPPay"
             android:windowSoftInputMode="adjustResize" />
+
+
     </application>
 
 </manifest>

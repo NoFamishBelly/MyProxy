@@ -34,4 +34,6 @@
     <string name="string_base_url_default">默认:http://checkout-switch-dev.wallyt.net/jsonxml/pay/gateway</string>
 
     <string name="string_modify_success">参数修改成功</string>
+
+    <string name="string_uninstall_yin_lian">手机上未安装银联Apk</string>
 </resources>

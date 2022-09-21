@@ -19,6 +19,7 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
--dontwarn com.unionPay.**
--keep class com.unionPay.** {*;}
--keep class org.simalliance.openmobileapi.** {*;}
+-dontwarn com.unionpay.**
+-keep class com.unionpay.** {*;}
+-dontwarn com.huawei.**
+-keep class com.huawei.** {*;}

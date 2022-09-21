@@ -229,6 +229,19 @@ class AppCallAppActivity : BaseAbstractActivity<AppCallAppContract.Presenter>(),
      * 银联支付
      */
     private fun upPay() {
+//        if (UPPayAssistEx.checkWalletInstalled(getActivity())) {
+//            //当判断用户手机上已安装银联Apk，商户客户端可以做相应个性化处理
+//            var tn = mTn
+//            if (TextUtils.isEmpty(tn)) {
+//                tn = getTn()
+//            }
+//            mDisplayStringBuilder.append("《======银联支付======》\n交易订单号tn : $tn\n")
+//            UPPayAssistEx.startPay(getActivity(), null, null, tn, ParamUtils.getYinLianFromSp())
+//            display()
+//        } else {
+//            mDisplayStringBuilder.append(getString(R.string.string_uninstall_yin_lian))
+//        }
+
         var tn = mTn
         if (TextUtils.isEmpty(tn)) {
             tn = getTn()
