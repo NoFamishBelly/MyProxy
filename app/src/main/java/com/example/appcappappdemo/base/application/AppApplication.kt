@@ -8,7 +8,7 @@ class AppApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
-        AppClient.init(this)
+        AppClient.init()
         SpUtils.init(this)
     }
 }

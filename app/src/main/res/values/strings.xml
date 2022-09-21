@@ -36,4 +36,5 @@
     <string name="string_modify_success">参数修改成功</string>
 
     <string name="string_uninstall_yin_lian">手机上未安装银联Apk</string>
+    <string name="string_param_error">接口请求参数不是String类型</string>
 </resources>

@@ -12,6 +12,7 @@ import okhttp3.*
 import java.io.BufferedReader
 import java.io.IOException
 import java.io.InputStreamReader
+import java.lang.reflect.Type
 
 
 /**
@@ -35,13 +36,13 @@ class RequestCall<T> {
      * mMainHandler  回调都是在主线程
      */
     private var mHttpParams: HttpParams? = null
-    private var mResponseDataType: T
+    private var mResponseDataType: Type
     private val mMainHandler = Handler(Looper.getMainLooper())
 
 
     constructor(
         httpParams: HttpParams,
-        responseDataType: T
+        responseDataType: Type
     ) {
         mHttpParams = httpParams
         mResponseDataType = responseDataType
@@ -55,7 +56,7 @@ class RequestCall<T> {
 
     private fun enqueue(
         call: Call,
-        genericType: T,
+        genericType: Type,
         callback: ResponseCallback<T>
     ) {
         call.enqueue(object : Callback {

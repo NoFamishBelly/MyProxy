@@ -3,6 +3,7 @@ package com.example.appcappappdemo.utils
 import android.content.Context
 import com.google.gson.Gson
 import com.google.gson.JsonObject
+import java.lang.reflect.Type
 
 object KotlinUtils {
 
@@ -33,6 +34,17 @@ object KotlinUtils {
                 return gson.fromJson(jsonStr, it::class.java) as T
             }
             return null
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+        return null
+    }
+
+
+    fun <T> stringToJson(jsonStr: String?, type: Type): T? {
+        try {
+            val gson = Gson()
+            return gson.fromJson(jsonStr, type)
         } catch (e: Exception) {
             e.printStackTrace()
         }
