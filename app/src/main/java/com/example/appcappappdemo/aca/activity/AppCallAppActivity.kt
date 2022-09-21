@@ -211,7 +211,7 @@ class AppCallAppActivity : BaseAbstractActivity<AppCallAppContract.Presenter>(),
                 }
                 R.id.id_btn_query_refund -> {
                     mPresenter?.let { presenter ->
-                        presenter.refund(createRefundQueryData())
+                        presenter.refundQuery(createRefundQueryData())
                     }
                 }
                 R.id.id_et_query_refund -> {
@@ -422,6 +422,13 @@ class AppCallAppActivity : BaseAbstractActivity<AppCallAppContract.Presenter>(),
         showFailedInfo(errCode, errMsg)
     }
 
+    override fun refundQuerySuccess(response: RefundResponseEntity) {
+        showSuccessInfo(response)
+    }
+
+    override fun refundQueryFailed(errCode: String, errMsg: String) {
+        showFailedInfo(errCode, errMsg)
+    }
 
     private fun showRequestInfo(json: String?) {
         val data = json!!.substring(1, json.length - 1)

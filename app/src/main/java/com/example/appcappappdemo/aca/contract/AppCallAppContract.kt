@@ -24,6 +24,10 @@ class AppCallAppContract {
         fun refundSuccess(response: RefundResponseEntity)
 
         fun refundFailed(errCode: String, errMsg: String)
+
+        fun refundQuerySuccess(response: RefundResponseEntity)
+
+        fun refundQueryFailed(errCode: String, errMsg: String)
     }
 
 
@@ -33,6 +37,8 @@ class AppCallAppContract {
         fun query(queryRequestEntity: QueryRequestEntity)
 
         fun refund(refundRequestEntity: RefundRequestEntity)
+
+        fun refundQuery(refundRequestEntity: RefundRequestEntity)
     }
 
 }

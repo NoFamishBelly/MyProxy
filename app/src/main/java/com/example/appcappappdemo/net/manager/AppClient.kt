@@ -62,7 +62,26 @@ object AppClient {
             map[RefundRequestEntity.PARAM_SIGN_TYPE].toString(),
             map[RefundRequestEntity.PARAM_TOTAL_FEE].toString()
         ).enqueue(ResponseCallbackWrapper<RefundResponseEntity>(callback))
+    }
 
+
+    fun refundQuery(
+        requestParam: RefundRequestEntity,
+        callback: ResultCallback<RefundResponseEntity>?
+    ) {
+        val map = requestParam.dataMap
+        mPayApi.refundQuery(
+            map[RefundRequestEntity.PARAM_MCH_ID].toString(),
+            map[RefundRequestEntity.PARAM_NONCE_STR].toString(),
+            map[RefundRequestEntity.PARAM_OP_USER_ID].toString(),
+            map[RefundRequestEntity.PARAM_OUT_REFUND_NO].toString(),
+            map[RefundRequestEntity.PARAM_OUT_TRADE_NO].toString(),
+            map[RefundRequestEntity.PARAM_REFUND_FEE].toString(),
+            map[RefundRequestEntity.PARAM_SERVICE].toString(),
+            map[RefundRequestEntity.PARAM_SIGN].toString(),
+            map[RefundRequestEntity.PARAM_SIGN_TYPE].toString(),
+            map[RefundRequestEntity.PARAM_TOTAL_FEE].toString()
+        ).enqueue(ResponseCallbackWrapper<RefundResponseEntity>(callback))
     }
 
 }

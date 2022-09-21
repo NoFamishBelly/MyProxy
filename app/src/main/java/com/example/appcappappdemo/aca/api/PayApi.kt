@@ -51,4 +51,19 @@ interface PayApi {
     ): RequestCall<RefundResponseEntity>
 
 
+    @Address("http://checkout-switch-dev.wallyt.net/jsonxml/pay/gateway")
+    fun refundQuery(
+        @Param("mch_id") mch_id: String,
+        @Param("nonce_str") nonce_str: String,
+        @Param("op_user_id") op_user_id: String,
+        @Param("out_refund_no") out_refund_no: String,
+        @Param("out_trade_no") out_trade_no: String,
+        @Param("refund_fee") refund_fee: String,
+        @Param("service") service: String,
+        @Param("sign") sign: String,
+        @Param("sign_type") sign_type: String,
+        @Param("total_fee") total_fee: String
+    ): RequestCall<RefundResponseEntity>
+
+
 }

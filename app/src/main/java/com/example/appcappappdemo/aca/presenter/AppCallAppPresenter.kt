@@ -82,6 +82,29 @@ class AppCallAppPresenter : AppCallAppContract.Presenter {
         )
     }
 
+
+    /**
+     * 退款查询
+     */
+    override fun refundQuery(refundRequestEntity: RefundRequestEntity) {
+        AppClient.refundQuery(
+            refundRequestEntity,
+            object : LifecycleMVPResultCallback<RefundResponseEntity>(mAppCallAppView) {
+                override fun onLifecycleMVPSucceed(response: RefundResponseEntity) {
+                    mAppCallAppView?.let {
+                        it.refundQuerySuccess(response)
+                    }
+                }
+
+                override fun onLifecycleMVPFailed(errCode: String, errMsg: String) {
+                    mAppCallAppView?.let {
+                        it.refundQueryFailed(errCode, errMsg)
+                    }
+                }
+            }
+        )
+    }
+
     override fun attachView(view: BaseView<*>) {
         mAppCallAppView = view as AppCallAppContract.View
     }
