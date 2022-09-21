@@ -3,11 +3,13 @@ package com.example.appcappappdemo.net.listener.request
 import android.os.Handler
 import android.os.Looper
 import android.text.TextUtils
+import com.example.appcappappdemo.BuildConfig
 import com.example.appcappappdemo.net.listener.response.ResponseCallback
 import com.example.appcappappdemo.net.manager.OkHttpManager
 import com.example.appcappappdemo.net.param.HttpParams
 import com.example.appcappappdemo.utils.KotlinUtils
 import com.example.appcappappdemo.utils.LogUtils
+import com.example.appcappappdemo.utils.ParamUtils
 import okhttp3.*
 import java.io.BufferedReader
 import java.io.IOException
@@ -102,7 +104,9 @@ class RequestCall<T> {
     private fun buildCall(): Call {
         val builder = Request.Builder()
         mHttpParams?.let { param ->
-            val url = param.mUrl
+            val url =
+                if (BuildConfig.isBaseUrlEditable) ParamUtils.getBaseUrlFromSp()
+                else param.mUrl
             val json = KotlinUtils.getDataJsonStr(param.mParams)
             builder.url(url)
             builder.post(
