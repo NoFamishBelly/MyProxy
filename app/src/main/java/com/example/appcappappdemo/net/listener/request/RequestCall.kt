@@ -20,9 +20,9 @@ import java.lang.reflect.Type
 /**
  * @author lizheng.zhao
  * @date 2022/09/16
+ * @description 接口发出请求
  */
 class RequestCall<T> {
-
 
     companion object {
         const val CODE_SUCCESS = "200"

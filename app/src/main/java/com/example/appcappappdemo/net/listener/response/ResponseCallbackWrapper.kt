@@ -6,6 +6,8 @@ import com.example.appcappappdemo.net.listener.result.ResultCallback
 /**
  * @author lizheng.zhao
  * @date 2022/09/16
+ * @description 接口返回结果回调
+ *
  * @description 这个类是ResponseCallback的包装，主要做了对某些错误码的处理，比如登录过期，没有网络等等
  */
 open class ResponseCallbackWrapper<T> : ResponseCallback<T> {

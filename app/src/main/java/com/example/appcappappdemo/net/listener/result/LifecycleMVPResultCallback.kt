@@ -6,6 +6,7 @@ import java.lang.ref.WeakReference
 /**
  * @author lizheng.zhao
  * @date 2022/09/16
+ * @description 接口返回结果转换为界面交互
  */
 abstract class LifecycleMVPResultCallback<T> : ResultCallback<T> {
 

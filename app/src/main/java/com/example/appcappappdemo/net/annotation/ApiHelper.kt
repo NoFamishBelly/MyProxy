@@ -3,6 +3,11 @@ package com.example.appcappappdemo.net.annotation
 import com.example.appcappappdemo.net.listener.request.RequestCall
 import java.lang.reflect.*
 
+/**
+ * @author lizheng.zhao
+ * @date 2022/09/21
+ * @description 注解解析工具类类
+ */
 object ApiHelper {
 
     fun <T> getApi(c: Class<T>): T {

@@ -7,7 +7,7 @@ import java.lang.reflect.Method
 /**
  * @author lizheng.zhao
  * @date 2022/09/21
- * @description 将参数注解解析到HttpParam中
+ * @description 将  方法/参数   注解解析到HttpParam中
  */
 object AnnotationParser {
 

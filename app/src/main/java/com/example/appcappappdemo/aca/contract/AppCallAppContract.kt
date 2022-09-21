@@ -32,12 +32,24 @@ class AppCallAppContract {
 
 
     interface Presenter : BasePresenter<View> {
+        /**
+         * 下单
+         */
         fun pay(payRequestEntity: PayRequestEntity)
 
+        /**
+         * 订单查询
+         */
         fun query(queryRequestEntity: QueryRequestEntity)
 
+        /**
+         * 退款
+         */
         fun refund(refundRequestEntity: RefundRequestEntity)
 
+        /**
+         * 退款单查询
+         */
         fun refundQuery(refundRequestEntity: RefundRequestEntity)
     }
 
