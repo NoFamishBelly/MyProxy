@@ -26,9 +26,9 @@ abstract class BaseAbstractActivity<P : BasePresenter<*>> : AppCompatActivity() 
     private var loadingDialog: LoadingDialog? = null
     protected var mPresenter: P? = null
 
-    protected lateinit var mToolBarBase: Toolbar
-    protected lateinit var mToolBarTitle: TextView
-    protected lateinit var mToolBarRightLl: LinearLayout
+    private lateinit var mToolBarBase: Toolbar
+    private lateinit var mToolBarTitle: TextView
+    private lateinit var mToolBarRightLl: LinearLayout
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -150,6 +150,9 @@ abstract class BaseAbstractActivity<P : BasePresenter<*>> : AppCompatActivity() 
         }
     }
 
+    /**
+     * 展示 loading
+     */
     private fun showLoadingDialog() {
         try {
             if (loadingDialog == null) {
@@ -182,6 +185,9 @@ abstract class BaseAbstractActivity<P : BasePresenter<*>> : AppCompatActivity() 
         }
     }
 
+    /**
+     * 隐藏 loading
+     */
     private fun dismissLoadingDialog() {
         if (loadingDialog == null) {
             return
@@ -204,6 +210,9 @@ abstract class BaseAbstractActivity<P : BasePresenter<*>> : AppCompatActivity() 
     }
 
 
+    /**
+     * 展示toast
+     */
     protected fun displayToast(msg: String?) {
         msg?.let {
             Toast.makeText(this, it, Toast.LENGTH_SHORT).show()

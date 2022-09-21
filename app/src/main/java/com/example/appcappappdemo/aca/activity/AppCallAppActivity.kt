@@ -28,7 +28,12 @@ class AppCallAppActivity : BaseAbstractActivity<AppCallAppContract.Presenter>(),
     override fun getLayoutId() = R.layout.act_app_call_app
 
     companion object {
-        const val PAY_SERVER_MODE_UAT = "01"
+        /**
+         * PAY_RESULT      银联支付结果
+         * PAY_SUCCESS    银联支付成功
+         * PAY_FAIL           银联支付失败
+         * PAY_CANCEL      银联支付取消
+         */
         const val PAY_RESULT = "pay_result"
         const val PAY_SUCCESS = "success"
         const val PAY_FAIL = "fail"
@@ -65,6 +70,9 @@ class AppCallAppActivity : BaseAbstractActivity<AppCallAppContract.Presenter>(),
     }
 
 
+    /**
+     * 初始化ToolBar
+     */
     private fun initToolBar() {
         setToolBarTitle(getString(R.string.string_tool_bar))
 
@@ -85,6 +93,9 @@ class AppCallAppActivity : BaseAbstractActivity<AppCallAppContract.Presenter>(),
     }
 
 
+    /**
+     * 初始化 UI 界面
+     */
     private fun initView() {
         mBtnPay = findViewById(R.id.id_btn_pay)
         mEtPay = findViewById(R.id.id_et_pay)
@@ -119,6 +130,9 @@ class AppCallAppActivity : BaseAbstractActivity<AppCallAppContract.Presenter>(),
     }
 
 
+    /**
+     * 解决 ScrollView与TextView滑动冲突
+     */
     override fun onTouch(p0: View?, p1: MotionEvent?): Boolean {
         p1?.let { event ->
             p0?.let { v ->
@@ -130,21 +144,17 @@ class AppCallAppActivity : BaseAbstractActivity<AppCallAppContract.Presenter>(),
                 }
                 if (event.action === MotionEvent.ACTION_MOVE) {
                     if (y1 - event.y > 50) {
-                        v.parent
-                            .requestDisallowInterceptTouchEvent(
-                                canVerticalScroll(
-                                    v as TextView,
-                                    true
-                                )
+                        v.parent.requestDisallowInterceptTouchEvent(
+                            canVerticalScroll(
+                                v as TextView, true
                             )
+                        )
                     } else if (event.y - y1 > 380) {
-                        v.parent
-                            .requestDisallowInterceptTouchEvent(
-                                canVerticalScroll(
-                                    v as TextView,
-                                    false
-                                )
+                        v.parent.requestDisallowInterceptTouchEvent(
+                            canVerticalScroll(
+                                v as TextView, false
                             )
+                        )
                     }
                 }
                 if (event.action === MotionEvent.ACTION_UP) {
@@ -157,9 +167,7 @@ class AppCallAppActivity : BaseAbstractActivity<AppCallAppContract.Presenter>(),
 
 
     /**
-     * @param view 滑动的TextView
-     * @param flag true 向上滑动 false 向下滑动
-     * @return
+     * 解决 ScrollView与TextView滑动冲突
      */
     private fun canVerticalScroll(view: TextView, flag: Boolean): Boolean {
         //滚动的距离
@@ -178,10 +186,14 @@ class AppCallAppActivity : BaseAbstractActivity<AppCallAppContract.Presenter>(),
     }
 
 
+    /**
+     * 按钮点击事件
+     */
     override fun onClick(p0: View?) {
         p0?.let { view ->
             when (view.id) {
                 R.id.id_btn_pay -> {
+                    //下单
                     mPresenter?.let { presenter ->
                         presenter.pay(createPayData())
                     }
@@ -190,6 +202,7 @@ class AppCallAppActivity : BaseAbstractActivity<AppCallAppContract.Presenter>(),
 
                 }
                 R.id.id_btn_query -> {
+                    //查询订单
                     mPresenter?.let { presenter ->
                         presenter.query(createQueryData())
                     }
@@ -198,18 +211,22 @@ class AppCallAppActivity : BaseAbstractActivity<AppCallAppContract.Presenter>(),
 
                 }
                 R.id.id_btn_yinlian -> {
+                    //银联支付
                     upPay()
                 }
                 R.id.id_btn_refund -> {
+                    //退款
                     mPresenter?.let { presenter ->
                         presenter.refund(createRefundData())
                     }
                 }
                 R.id.id_btn_clear_log -> {
+                    //清空日志
                     mDisplayStringBuilder.clear()
                     display()
                 }
                 R.id.id_btn_query_refund -> {
+                    //退款单查询
                     mPresenter?.let { presenter ->
                         presenter.refundQuery(createRefundQueryData())
                     }
@@ -254,11 +271,11 @@ class AppCallAppActivity : BaseAbstractActivity<AppCallAppContract.Presenter>(),
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == Constants.ACTIVITY_REQUEST_CODE_PARAM_SET
-            && resultCode == Constants.ACTIVITY_RESULT_CODE_PARAM_SET
-        ) {
+        if (requestCode == Constants.ACTIVITY_REQUEST_CODE_PARAM_SET && resultCode == Constants.ACTIVITY_RESULT_CODE_PARAM_SET) {
+            //修改配置参数
             displayToast(getString(R.string.string_modify_success))
         } else {
+            //银联支付结果
             data?.let { result ->
                 val msg = result.getStringExtra(PAY_RESULT)
                 if (msg.equals(PAY_SUCCESS, ignoreCase = true)) {
@@ -279,12 +296,18 @@ class AppCallAppActivity : BaseAbstractActivity<AppCallAppContract.Presenter>(),
     }
 
 
+    /**
+     * 获取时间戳 作测试out_trade_no
+     */
     private fun getTimeStamp(): String {
         val timeStamp = System.currentTimeMillis().toString()
         return timeStamp.substring(0, timeStamp.length - 3)
     }
 
 
+    /**
+     * 下单  接口请求参数
+     */
     private fun createPayData(): PayRequestEntity {
         mTimeStamp = getTimeStamp()
         mEtQuery.text = mTimeStamp
@@ -306,6 +329,9 @@ class AppCallAppActivity : BaseAbstractActivity<AppCallAppContract.Presenter>(),
     }
 
 
+    /**
+     * 查询订单  接口请求参数
+     */
     private fun createQueryData(): QueryRequestEntity {
         val queryRequestEntity = QueryRequestEntity(
             mch_id = ParamUtils.getMchIdFromSp(),
@@ -318,6 +344,10 @@ class AppCallAppActivity : BaseAbstractActivity<AppCallAppContract.Presenter>(),
         return queryRequestEntity
     }
 
+
+    /**
+     * 退款  接口请求参数
+     */
     private fun createRefundData(): RefundRequestEntity {
         val refundRequestEntity = RefundRequestEntity(
             mch_id = ParamUtils.getMchIdFromSp(),
@@ -334,6 +364,10 @@ class AppCallAppActivity : BaseAbstractActivity<AppCallAppContract.Presenter>(),
         return refundRequestEntity
     }
 
+
+    /**
+     * 退款单查询  接口请求参数
+     */
     private fun createRefundQueryData(): RefundRequestEntity {
         val refundRequestEntity = RefundRequestEntity(
             mch_id = ParamUtils.getMchIdFromSp(),
@@ -393,43 +427,76 @@ class AppCallAppActivity : BaseAbstractActivity<AppCallAppContract.Presenter>(),
 
     override fun createPresenter() = AppCallAppPresenter()
 
+
+    /**
+     * 下单成功
+     */
     override fun paySuccess(response: PayResponseEntity) {
         mTn = response.tn
         if (!TextUtils.isEmpty(response.tn)) {
             mEtPay.text = response.tn
         }
-        showSuccessInfo(response)
+        showResponseSuccessInfo(response)
     }
 
+
+    /**
+     * 下单失败
+     */
     override fun payFailed(errCode: String, errMsg: String) {
-        showFailedInfo(errCode, errMsg)
+        showResponseFailedInfo(errCode, errMsg)
     }
 
+
+    /**
+     * 查询订单成功
+     */
     override fun querySuccess(response: QueryResponseEntity) {
-        showSuccessInfo(response)
+        showResponseSuccessInfo(response)
     }
 
+
+    /**
+     * 查询订单失败
+     */
     override fun queryFailed(errCode: String, errMsg: String) {
-        showFailedInfo(errCode, errMsg)
+        showResponseFailedInfo(errCode, errMsg)
     }
 
 
+    /**
+     * 退款成功
+     */
     override fun refundSuccess(response: RefundResponseEntity) {
-        showSuccessInfo(response)
+        showResponseSuccessInfo(response)
     }
 
+    /**
+     * 退款失败
+     */
     override fun refundFailed(errCode: String, errMsg: String) {
-        showFailedInfo(errCode, errMsg)
+        showResponseFailedInfo(errCode, errMsg)
     }
 
+
+    /**
+     * 退款单查询成功
+     */
     override fun refundQuerySuccess(response: RefundResponseEntity) {
-        showSuccessInfo(response)
+        showResponseSuccessInfo(response)
     }
 
+    /**
+     * 退款单查询失败
+     */
     override fun refundQueryFailed(errCode: String, errMsg: String) {
-        showFailedInfo(errCode, errMsg)
+        showResponseFailedInfo(errCode, errMsg)
     }
 
+
+    /**
+     * 展示请求参数信息
+     */
     private fun showRequestInfo(json: String?) {
         val data = json!!.substring(1, json.length - 1)
         mDisplayStringBuilder.append("请求参数: \n")
@@ -443,7 +510,10 @@ class AppCallAppActivity : BaseAbstractActivity<AppCallAppContract.Presenter>(),
     }
 
 
-    private fun <T> showSuccessInfo(t: T) {
+    /**
+     * 展示 接口返回成功信息
+     */
+    private fun <T> showResponseSuccessInfo(t: T) {
         val json = KotlinUtils.jsonToString(t)
 
         val data = json!!.substring(1, json.length - 1)
@@ -457,12 +527,19 @@ class AppCallAppActivity : BaseAbstractActivity<AppCallAppContract.Presenter>(),
         display()
     }
 
-    private fun showFailedInfo(errCode: String, errMsg: String) {
+
+    /**
+     * 展示 接口返回错误信息
+     */
+    private fun showResponseFailedInfo(errCode: String, errMsg: String) {
         mDisplayStringBuilder.append("请求结果(失败): \n$errCode  $errMsg \n\n\n\n")
         display()
     }
 
 
+    /**
+     * 展示信息
+     */
     private fun display() {
         mTvDisplay.text = mDisplayStringBuilder.toString()
     }
