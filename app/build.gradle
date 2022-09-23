@@ -3,7 +3,26 @@ plugins {
     id 'org.jetbrains.kotlin.android'
 }
 
+//获得当前时间
+def getDate() {
+    def date = new Date()
+    def formattedDate = date.format('yyyyMMddHHmm')
+    return formattedDate
+}
+
 android {
+
+
+    //配置自定义打包名称
+    applicationVariants.all { variant ->
+        variant.outputs.all {
+            def fileName
+
+            fileName = "wft_aos__${variant.buildType.name}_${variant.mergedFlavor.versionName}_${variant.versionCode}_${getDate()}.apk".toLowerCase()
+
+            outputFileName = fileName;
+        }
+    }
 
     /**
      * bundle 打包配置 --- 过滤拆分文件
@@ -48,11 +67,20 @@ android {
 
 
     signingConfigs {
+//        config {
+//            //google play 2021/8起, 必须上传aab, 需要密钥级别更高的密钥
+//            keyAlias 'wft'
+//            keyPassword 'wft20220704'
+//            storeFile file('../keystore/swiftpass_upload_key.jks')
+//            storePassword 'wft20220704'
+//        }
+
+
         config {
-//            google play 2021/8起, 必须上传aab, 需要密钥级别更高的密钥
-            keyAlias 'wft'
+            //google play 2021/8起, 必须上传aab, 需要密钥级别更高的密钥
+            keyAlias 'wftsign'
             keyPassword 'wft20220704'
-            storeFile file('../keystore/swiftpass_upload_key.jks')
+            storeFile file('../keystore/swiftpass_app_signing_key.keystore')
             storePassword 'wft20220704'
         }
 
