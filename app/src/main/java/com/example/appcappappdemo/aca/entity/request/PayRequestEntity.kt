@@ -43,10 +43,10 @@ class PayRequestEntity() : BaseRequestEntity() {
         dataMap[PARAM_OUT_TRADE_NO] = out_trade_no
         dataMap[PARAM_TOTAL_FEE] = total_fee
         dataMap[PARAM_VERSION] = VERSION_2
-        dataMap[PARAM_CHARSET] = CHARSET
+        dataMap[PARAM_CHARSET] = CHARSET_UTF_8
         dataMap[PARAM_ATTACH] = "商户附加信息"
-        dataMap[PARAM_TIME_START] = "订单生成时间: 2022-9-23"
-        dataMap[PARAM_TIME_EXPIRE] = "订单失效时间: 2032-7-11"
+        dataMap[PARAM_TIME_START] = "2022-9-23"
+        dataMap[PARAM_TIME_EXPIRE] = "2032-7-11"
 
         dataMap[PARAM_SERVICE] = SERVICE_PAY
         dataMap[PARAM_SIGN_TYPE] = SIGN_TYPE_MD5

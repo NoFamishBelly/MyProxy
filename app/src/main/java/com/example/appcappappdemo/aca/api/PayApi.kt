@@ -38,7 +38,9 @@ interface PayApi {
         @Param("out_trade_no") out_trade_no: String,
         @Param("service") service: String,
         @Param("sign") sign: String,
-        @Param("sign_type") sign_type: String
+        @Param("sign_type") sign_type: String,
+        @Param("version") version: String,
+        @Param("charset") charset: String
     ): RequestCall<QueryResponseEntity>
 
 

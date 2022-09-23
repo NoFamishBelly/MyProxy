@@ -51,7 +51,9 @@ object AppClient {
             map[QueryRequestEntity.PARAM_OUT_TRADE_NO].toString(),
             map[QueryRequestEntity.PARAM_SERVICE].toString(),
             map[QueryRequestEntity.PARAM_SIGN].toString(),
-            map[QueryRequestEntity.PARAM_SIGN_TYPE].toString()
+            map[QueryRequestEntity.PARAM_SIGN_TYPE].toString(),
+            map[QueryRequestEntity.PARAM_VERSION].toString(),
+            map[QueryRequestEntity.PARAM_CHARSET].toString()
         ).enqueue(ResponseCallbackWrapper<QueryResponseEntity>(callback))
     }
 

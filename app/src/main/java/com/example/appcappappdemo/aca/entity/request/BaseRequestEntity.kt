@@ -15,7 +15,7 @@ open class BaseRequestEntity(val dataMap: HashMap<String, String> = HashMap()) :
 
         const val SIGN_TYPE_MD5 = "MD5"
         const val VERSION_2 = "2.0"
-        const val CHARSET = "UTF-8"
+        const val CHARSET_UTF_8 = "UTF-8"
 
     }
 
