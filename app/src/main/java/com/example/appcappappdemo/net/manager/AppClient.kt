@@ -34,7 +34,12 @@ object AppClient {
             map[PayRequestEntity.PARAM_SERVICE].toString(),
             map[PayRequestEntity.PARAM_SIGN].toString(),
             map[PayRequestEntity.PARAM_SIGN_TYPE].toString(),
-            map[PayRequestEntity.PARAM_TOTAL_FEE].toString()
+            map[PayRequestEntity.PARAM_TOTAL_FEE].toString(),
+            map[PayRequestEntity.PARAM_VERSION].toString(),
+            map[PayRequestEntity.PARAM_CHARSET].toString(),
+            map[PayRequestEntity.PARAM_ATTACH].toString(),
+            map[PayRequestEntity.PARAM_TIME_START].toString(),
+            map[PayRequestEntity.PARAM_TIME_EXPIRE].toString()
         ).enqueue(ResponseCallbackWrapper<PayResponseEntity>(callback))
     }
 

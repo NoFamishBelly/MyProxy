@@ -12,5 +12,9 @@ class PayResponseEntity(
     var status: String = "",
     var thi_response_code: String = "",
     var tn: String = "",
-    var version: String = ""
+    var version: String = "",
+    var message: String = "",
+    var device_info: String = "",
+    var err_code: String = "",
+    var err_msg: String = ""
 ) : BaseEntity()

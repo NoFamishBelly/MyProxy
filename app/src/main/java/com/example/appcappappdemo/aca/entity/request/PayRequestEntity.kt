@@ -13,6 +13,13 @@ class PayRequestEntity() : BaseRequestEntity() {
         const val PARAM_SIGN = "sign"
         const val PARAM_SIGN_TYPE = "sign_type"
         const val PARAM_TOTAL_FEE = "total_fee"
+
+
+        const val PARAM_VERSION = "version"
+        const val PARAM_CHARSET = "charset"
+        const val PARAM_ATTACH = "attach"
+        const val PARAM_TIME_START = "time_start"
+        const val PARAM_TIME_EXPIRE = "time_expire"
     }
 
 
@@ -35,7 +42,11 @@ class PayRequestEntity() : BaseRequestEntity() {
         dataMap[PARAM_NOTIFY_URL] = notify_url
         dataMap[PARAM_OUT_TRADE_NO] = out_trade_no
         dataMap[PARAM_TOTAL_FEE] = total_fee
-
+        dataMap[PARAM_VERSION] = VERSION_2
+        dataMap[PARAM_CHARSET] = CHARSET
+        dataMap[PARAM_ATTACH] = "商户附加信息"
+        dataMap[PARAM_TIME_START] = "订单生成时间: 2022-9-23"
+        dataMap[PARAM_TIME_EXPIRE] = "订单失效时间: 2032-7-11"
 
         dataMap[PARAM_SERVICE] = SERVICE_PAY
         dataMap[PARAM_SIGN_TYPE] = SIGN_TYPE_MD5
