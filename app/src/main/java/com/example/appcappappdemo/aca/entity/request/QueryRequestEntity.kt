@@ -13,6 +13,11 @@ class QueryRequestEntity() : BaseRequestEntity() {
 
         const val PARAM_VERSION = "version"
         const val PARAM_CHARSET = "charset"
+
+        /**
+         * 商户系统内部的订单号, out_trade_no和transaction_id至少一个必填，
+         * 同时存在时transaction_id优先
+         */
         const val PARAM_TRANSACTION_ID = "transaction_id"
     }
 
@@ -29,7 +34,7 @@ class QueryRequestEntity() : BaseRequestEntity() {
 
         dataMap[PARAM_VERSION] = VERSION_2
         dataMap[PARAM_CHARSET] = CHARSET_UTF_8
-//        dataMap[PARAM_TRANSACTION_ID] = "null"
+//        dataMap[PARAM_TRANSACTION_ID] = ""
 
         dataMap[PARAM_SERVICE] = SERVICE_QUERY
         dataMap[PARAM_SIGN_TYPE] = SIGN_TYPE_MD5

@@ -55,7 +55,9 @@ interface PayApi {
         @Param("service") service: String,
         @Param("sign") sign: String,
         @Param("sign_type") sign_type: String,
-        @Param("total_fee") total_fee: String
+        @Param("total_fee") total_fee: String,
+        @Param("version") version: String,
+        @Param("charset") charset: String
     ): RequestCall<RefundResponseEntity>
 
 
