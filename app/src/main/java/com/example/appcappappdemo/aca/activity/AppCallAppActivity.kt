@@ -60,7 +60,8 @@ class AppCallAppActivity : BaseAbstractActivity<AppCallAppContract.Presenter>(),
 
     private var y1 = 1f
 
-    private var mTimeStamp: String = getTimeStamp()
+    private var mTimePayStamp: String = getTimeStamp()
+    private var mTimeRefundStamp: String = getTimeStamp()
 
 
     private var mTn: String = ""
@@ -311,8 +312,8 @@ class AppCallAppActivity : BaseAbstractActivity<AppCallAppContract.Presenter>(),
      * 下单  接口请求参数
      */
     private fun createPayData(): PayRequestEntity {
-        mTimeStamp = getTimeStamp()
-        mEtQuery.text = mTimeStamp
+        mTimePayStamp = getTimeStamp()
+        mEtQuery.text = mTimePayStamp
         val payRequestEntity = PayRequestEntity(
             body = "SRCi\\U652f\\U4ed8",
             device_info = "000001",
@@ -350,11 +351,13 @@ class AppCallAppActivity : BaseAbstractActivity<AppCallAppContract.Presenter>(),
      * 退款  接口请求参数
      */
     private fun createRefundData(): RefundRequestEntity {
+        mTimeRefundStamp = getTimeStamp()
+        mEtRefundQuery.text = mTimeRefundStamp
         val refundRequestEntity = RefundRequestEntity(
             mch_id = ParamUtils.getMchIdFromSp(),
             nonce_str = getOutTradeNo(),
             op_user_id = "100510000133",
-            out_refund_no = getRefundOutTradeNo(),
+            out_refund_no = getOutRefundNo(),
             out_trade_no = getOutTradeNo(),
             refund_fee = ParamUtils.getRefundMoneyFromSp(),
             total_fee = ParamUtils.getPayMoneyFromSp()
@@ -374,7 +377,7 @@ class AppCallAppActivity : BaseAbstractActivity<AppCallAppContract.Presenter>(),
             mch_id = ParamUtils.getMchIdFromSp(),
             nonce_str = getOutTradeNo(),
             op_user_id = "100510000133",
-            out_refund_no = getRefundOutTradeNo(),
+            out_refund_no = getOutRefundNo(),
             out_trade_no = getOutTradeNo(),
             refund_fee = ParamUtils.getRefundMoneyFromSp(),
             total_fee = ParamUtils.getPayMoneyFromSp()
@@ -403,7 +406,7 @@ class AppCallAppActivity : BaseAbstractActivity<AppCallAppContract.Presenter>(),
      * 获取订单号
      */
     private fun getOutTradeNo(): String {
-        var outTradeNo = mTimeStamp
+        var outTradeNo = mTimePayStamp
         mEtQuery?.let { et ->
             if (!TextUtils.isEmpty(et.text.toString().trim())) {
                 outTradeNo = et.text.toString().trim()
@@ -415,14 +418,14 @@ class AppCallAppActivity : BaseAbstractActivity<AppCallAppContract.Presenter>(),
     /**
      * 获取退款订单号
      */
-    private fun getRefundOutTradeNo(): String {
-        var outRefundTradeNo = mTimeStamp
+    private fun getOutRefundNo(): String {
+        var outRefundNo = mTimeRefundStamp
         mEtRefundQuery?.let { et ->
             if (!TextUtils.isEmpty(et.text.toString().trim())) {
-                outRefundTradeNo = et.text.toString().trim()
+                outRefundNo = et.text.toString().trim()
             }
         }
-        return outRefundTradeNo
+        return outRefundNo
     }
 
 
@@ -469,7 +472,6 @@ class AppCallAppActivity : BaseAbstractActivity<AppCallAppContract.Presenter>(),
      * 退款成功
      */
     override fun refundSuccess(response: RefundResponseEntity) {
-//        mEtRefundQuery.text = response.
         showResponseSuccessInfo(response)
     }
 
