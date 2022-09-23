@@ -10,9 +10,11 @@ import com.example.appcappappdemo.R
 import com.example.appcappappdemo.aca.contract.AppCallAppContract
 import com.example.appcappappdemo.aca.entity.request.PayRequestEntity
 import com.example.appcappappdemo.aca.entity.request.QueryRequestEntity
+import com.example.appcappappdemo.aca.entity.request.RefundQueryRequestEntity
 import com.example.appcappappdemo.aca.entity.request.RefundRequestEntity
 import com.example.appcappappdemo.aca.entity.response.PayResponseEntity
 import com.example.appcappappdemo.aca.entity.response.QueryResponseEntity
+import com.example.appcappappdemo.aca.entity.response.RefundQueryResponseEntity
 import com.example.appcappappdemo.aca.entity.response.RefundResponseEntity
 import com.example.appcappappdemo.aca.presenter.AppCallAppPresenter
 import com.example.appcappappdemo.base.activity.BaseAbstractActivity
@@ -311,7 +313,6 @@ class AppCallAppActivity : BaseAbstractActivity<AppCallAppContract.Presenter>(),
     private fun createPayData(): PayRequestEntity {
         mTimeStamp = getTimeStamp()
         mEtQuery.text = mTimeStamp
-        mEtRefundQuery.text = mTimeStamp
         val payRequestEntity = PayRequestEntity(
             body = "SRCi\\U652f\\U4ed8",
             device_info = "000001",
@@ -368,8 +369,8 @@ class AppCallAppActivity : BaseAbstractActivity<AppCallAppContract.Presenter>(),
     /**
      * 退款单查询  接口请求参数
      */
-    private fun createRefundQueryData(): RefundRequestEntity {
-        val refundRequestEntity = RefundRequestEntity(
+    private fun createRefundQueryData(): RefundQueryRequestEntity {
+        val refundRequestEntity = RefundQueryRequestEntity(
             mch_id = ParamUtils.getMchIdFromSp(),
             nonce_str = getOutTradeNo(),
             op_user_id = "100510000133",
@@ -468,6 +469,7 @@ class AppCallAppActivity : BaseAbstractActivity<AppCallAppContract.Presenter>(),
      * 退款成功
      */
     override fun refundSuccess(response: RefundResponseEntity) {
+//        mEtRefundQuery.text = response.
         showResponseSuccessInfo(response)
     }
 
@@ -482,7 +484,7 @@ class AppCallAppActivity : BaseAbstractActivity<AppCallAppContract.Presenter>(),
     /**
      * 退款单查询成功
      */
-    override fun refundQuerySuccess(response: RefundResponseEntity) {
+    override fun refundQuerySuccess(response: RefundQueryResponseEntity) {
         showResponseSuccessInfo(response)
     }
 

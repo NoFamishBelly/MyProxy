@@ -3,9 +3,11 @@ package com.example.appcappappdemo.aca.presenter
 import com.example.appcappappdemo.aca.contract.AppCallAppContract
 import com.example.appcappappdemo.aca.entity.request.PayRequestEntity
 import com.example.appcappappdemo.aca.entity.request.QueryRequestEntity
+import com.example.appcappappdemo.aca.entity.request.RefundQueryRequestEntity
 import com.example.appcappappdemo.aca.entity.request.RefundRequestEntity
 import com.example.appcappappdemo.aca.entity.response.PayResponseEntity
 import com.example.appcappappdemo.aca.entity.response.QueryResponseEntity
+import com.example.appcappappdemo.aca.entity.response.RefundQueryResponseEntity
 import com.example.appcappappdemo.aca.entity.response.RefundResponseEntity
 import com.example.appcappappdemo.base.view.BaseView
 import com.example.appcappappdemo.net.listener.result.LifecycleMVPResultCallback
@@ -86,11 +88,11 @@ class AppCallAppPresenter : AppCallAppContract.Presenter {
     /**
      * 退款查询
      */
-    override fun refundQuery(refundRequestEntity: RefundRequestEntity) {
+    override fun refundQuery(refundRequestEntity: RefundQueryRequestEntity) {
         AppClient.refundQuery(
             refundRequestEntity,
-            object : LifecycleMVPResultCallback<RefundResponseEntity>(mAppCallAppView) {
-                override fun onLifecycleMVPSucceed(response: RefundResponseEntity) {
+            object : LifecycleMVPResultCallback<RefundQueryResponseEntity>(mAppCallAppView) {
+                override fun onLifecycleMVPSucceed(response: RefundQueryResponseEntity) {
                     mAppCallAppView?.let {
                         it.refundQuerySuccess(response)
                     }

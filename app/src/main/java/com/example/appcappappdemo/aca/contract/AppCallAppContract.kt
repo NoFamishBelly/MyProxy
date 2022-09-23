@@ -2,9 +2,11 @@ package com.example.appcappappdemo.aca.contract
 
 import com.example.appcappappdemo.aca.entity.request.PayRequestEntity
 import com.example.appcappappdemo.aca.entity.request.QueryRequestEntity
+import com.example.appcappappdemo.aca.entity.request.RefundQueryRequestEntity
 import com.example.appcappappdemo.aca.entity.request.RefundRequestEntity
 import com.example.appcappappdemo.aca.entity.response.PayResponseEntity
 import com.example.appcappappdemo.aca.entity.response.QueryResponseEntity
+import com.example.appcappappdemo.aca.entity.response.RefundQueryResponseEntity
 import com.example.appcappappdemo.aca.entity.response.RefundResponseEntity
 import com.example.appcappappdemo.base.presenter.BasePresenter
 import com.example.appcappappdemo.base.view.BaseView
@@ -25,7 +27,7 @@ class AppCallAppContract {
 
         fun refundFailed(errCode: String, errMsg: String)
 
-        fun refundQuerySuccess(response: RefundResponseEntity)
+        fun refundQuerySuccess(response: RefundQueryResponseEntity)
 
         fun refundQueryFailed(errCode: String, errMsg: String)
     }
@@ -50,7 +52,7 @@ class AppCallAppContract {
         /**
          * 退款单查询
          */
-        fun refundQuery(refundRequestEntity: RefundRequestEntity)
+        fun refundQuery(refundRequestEntity: RefundQueryRequestEntity)
     }
 
 }

@@ -11,7 +11,7 @@ open class BaseRequestEntity(val dataMap: HashMap<String, String> = HashMap()) :
         const val SERVICE_PAY = "pay.upi.upop.app"
         const val SERVICE_QUERY = "unified.trade.query"
         const val SERVICE_REFUND = "unified.trade.refund"
-        const val SERVICE_REFUND_QUERY = "unified.trade.refund"
+        const val SERVICE_REFUND_QUERY = "unified.trade.refundquery"
 
         const val SIGN_TYPE_MD5 = "MD5"
     }

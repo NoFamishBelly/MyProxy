@@ -2,6 +2,7 @@ package com.example.appcappappdemo.aca.api
 
 import com.example.appcappappdemo.aca.entity.response.PayResponseEntity
 import com.example.appcappappdemo.aca.entity.response.QueryResponseEntity
+import com.example.appcappappdemo.aca.entity.response.RefundQueryResponseEntity
 import com.example.appcappappdemo.aca.entity.response.RefundResponseEntity
 import com.example.appcappappdemo.net.annotation.Address
 import com.example.appcappappdemo.net.annotation.Param
@@ -63,7 +64,7 @@ interface PayApi {
         @Param("sign") sign: String,
         @Param("sign_type") sign_type: String,
         @Param("total_fee") total_fee: String
-    ): RequestCall<RefundResponseEntity>
+    ): RequestCall<RefundQueryResponseEntity>
 
 
 }

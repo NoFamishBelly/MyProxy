@@ -3,9 +3,11 @@ package com.example.appcappappdemo.net.manager
 import com.example.appcappappdemo.aca.api.PayApi
 import com.example.appcappappdemo.aca.entity.request.PayRequestEntity
 import com.example.appcappappdemo.aca.entity.request.QueryRequestEntity
+import com.example.appcappappdemo.aca.entity.request.RefundQueryRequestEntity
 import com.example.appcappappdemo.aca.entity.request.RefundRequestEntity
 import com.example.appcappappdemo.aca.entity.response.PayResponseEntity
 import com.example.appcappappdemo.aca.entity.response.QueryResponseEntity
+import com.example.appcappappdemo.aca.entity.response.RefundQueryResponseEntity
 import com.example.appcappappdemo.aca.entity.response.RefundResponseEntity
 import com.example.appcappappdemo.net.annotation.ApiHelper
 import com.example.appcappappdemo.net.listener.response.ResponseCallbackWrapper
@@ -66,8 +68,8 @@ object AppClient {
 
 
     fun refundQuery(
-        requestParam: RefundRequestEntity,
-        callback: ResultCallback<RefundResponseEntity>?
+        requestParam: RefundQueryRequestEntity,
+        callback: ResultCallback<RefundQueryResponseEntity>?
     ) {
         val map = requestParam.dataMap
         mPayApi.refundQuery(
@@ -81,7 +83,7 @@ object AppClient {
             map[RefundRequestEntity.PARAM_SIGN].toString(),
             map[RefundRequestEntity.PARAM_SIGN_TYPE].toString(),
             map[RefundRequestEntity.PARAM_TOTAL_FEE].toString()
-        ).enqueue(ResponseCallbackWrapper<RefundResponseEntity>(callback))
+        ).enqueue(ResponseCallbackWrapper<RefundQueryResponseEntity>(callback))
     }
 
 }
