@@ -91,7 +91,9 @@ object AppClient {
             map[RefundRequestEntity.PARAM_SERVICE].toString(),
             map[RefundRequestEntity.PARAM_SIGN].toString(),
             map[RefundRequestEntity.PARAM_SIGN_TYPE].toString(),
-            map[RefundRequestEntity.PARAM_TOTAL_FEE].toString()
+            map[RefundRequestEntity.PARAM_TOTAL_FEE].toString(),
+            map[RefundRequestEntity.PARAM_VERSION].toString(),
+            map[RefundRequestEntity.PARAM_CHARSET].toString()
         ).enqueue(ResponseCallbackWrapper<RefundQueryResponseEntity>(callback))
     }
 
