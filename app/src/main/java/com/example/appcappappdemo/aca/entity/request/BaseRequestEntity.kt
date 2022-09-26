@@ -20,6 +20,13 @@ open class BaseRequestEntity(val dataMap: HashMap<String, String> = HashMap()) :
     }
 
 
+    /**
+     * 排序拼接  + privateKey
+     * MD5
+     * 大写
+     * 填入sign字段
+     * 上传
+     */
     fun getSign(): String {
         if (dataMap.isNotEmpty()) {
             val array = dataMap.keys.toTypedArray()
