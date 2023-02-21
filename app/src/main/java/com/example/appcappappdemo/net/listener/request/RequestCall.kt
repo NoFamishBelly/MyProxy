@@ -91,9 +91,13 @@ class RequestCall<T> {
                             callSuccess(entity, callback)
                             return@onResponse
                         }
-                        callFail(CODE_JSON_EXCEPTION, "json解析异常", callback)
+                        callFail(CODE_JSON_EXCEPTION, "json解析异常\n   详细信息:\n$json", callback)
                     } else {
-                        callFail(result.code().toString(), "有返回，okhttp返回错误码", callback)
+                        callFail(
+                            result.code().toString(),
+                            "有返回，okhttp返回错误码  ${result.toString()}",
+                            callback
+                        )
                     }
                 }
             }
